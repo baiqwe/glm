@@ -6,6 +6,3 @@ Disallow: /_next/
 
 # Host
 Host: https://makebw.com
-
-# Sitemaps
-Sitemap: https://makebw.com/sitemap.xml
