@@ -68,25 +68,23 @@ export default async function LocaleLayout(props: {
     } = await supabase.auth.getUser();
 
     return (
-        <html lang={locale} className={geistSans.className} suppressHydrationWarning>
-            <body className="bg-background text-foreground">
-                <SoftwareApplicationSchema />
-                <NextIntlClientProvider messages={messages} locale={locale}>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="system"
-                        enableSystem
-                        disableTransitionOnChange
-                    >
-                        <div className="relative min-h-screen">
-                            <Header user={user} />
-                            <main className="flex-1">{children}</main>
-                            <Footer />
-                        </div>
-                        <Toaster />
-                    </ThemeProvider>
-                </NextIntlClientProvider>
-            </body>
-        </html>
+        <>
+            <SoftwareApplicationSchema />
+            <NextIntlClientProvider messages={messages} locale={locale}>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <div className="relative min-h-screen">
+                        <Header user={user} />
+                        <main className="flex-1">{children}</main>
+                        <Footer />
+                    </div>
+                    <Toaster />
+                </ThemeProvider>
+            </NextIntlClientProvider>
+        </>
     );
 }
