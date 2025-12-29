@@ -5,20 +5,18 @@ import { locales } from '@/i18n';
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "next-themes";
-import { createClient } from "@/utils/supabase/server";
 import { Toaster } from "@/components/ui/toaster";
 import { SoftwareApplicationSchema } from "@/components/json-ld-schema";
 import { Geist } from "next/font/google";
 import "../globals.css";
 
+// ✅ 必须添加这一行，让前端页面兼容 Cloudflare Edge
+export const runtime = 'edge';
+
 const geistSans = Geist({
     display: "swap",
     subsets: ["latin"],
 });
-
-export function generateStaticParams() {
-    return locales.map((locale) => ({ locale }));
-}
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;
@@ -63,10 +61,9 @@ export default async function LocaleLayout(props: {
     }
 
     const messages = await getMessages({ locale });
-    const supabase = await createClient();
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+
+    // MVP: 暂时不使用 Supabase，用户设为 null
+    const user = null;
 
     return (
         <html lang={locale} className={geistSans.className} suppressHydrationWarning>
@@ -91,4 +88,3 @@ export default async function LocaleLayout(props: {
         </html>
     );
 }
-

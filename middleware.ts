@@ -1,64 +1,23 @@
-import { type NextRequest, NextResponse } from "next/server";
 import createMiddleware from 'next-intl/middleware';
-import { locales } from './i18n';
-import { createServerClient } from "@supabase/ssr";
+import { type NextRequest } from 'next/server';
 
-// Create i18n middleware
-const intlMiddleware = createMiddleware({
-  locales: locales as unknown as string[],
+// 1. 定义支持的语言
+const locales = ['en', 'zh'];
+
+// 2. 创建多语言中间件
+const handleI18nRouting = createMiddleware({
+  locales,
   defaultLocale: 'en',
-  localePrefix: 'always'
+  localePrefix: 'as-needed'
 });
 
-export async function middleware(request: NextRequest) {
-  // First handle i18n routing
-  let response = intlMiddleware(request);
-
-  // Then handle Supabase session
-  try {
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return request.cookies.getAll();
-          },
-          setAll(cookiesToSet) {
-            cookiesToSet.forEach(({ name, value }) =>
-              request.cookies.set(name, value)
-            );
-            response = NextResponse.next({
-              request,
-            });
-            cookiesToSet.forEach(({ name, value, options }) =>
-              response.cookies.set(name, value, options)
-            );
-          },
-        },
-      }
-    );
-
-    // Refresh session if expired
-    const user = await supabase.auth.getUser();
-
-    // Protect dashboard routes (need to account for locale prefix)
-    const pathname = request.nextUrl.pathname;
-    const isDashboard = pathname.includes("/dashboard");
-
-    if (isDashboard && user.error) {
-      // Extract locale from path
-      const locale = pathname.split('/')[1];
-      return NextResponse.redirect(new URL(`/${locale}/sign-in`, request.url));
-    }
-
-    return response;
-  } catch (e) {
-    return response;
-  }
+export default async function middleware(request: NextRequest) {
+  // MVP版本：只处理多语言路由，不处理 Supabase 鉴权
+  const response = handleI18nRouting(request);
+  return response;
 }
 
 export const config = {
-  // Match all paths except api, _next, static files
+  // 匹配除了 api, _next, 静态文件之外的所有路径
   matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
 };
