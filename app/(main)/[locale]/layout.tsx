@@ -1,7 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { locales } from '@/i18n';
+import { routing } from '@/i18n/routing';
 import Header from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "next-themes";
@@ -56,7 +56,7 @@ export default async function LocaleLayout(props: {
     const { children } = props;
 
     // Validate locale
-    if (!locales.includes(locale as any)) {
+    if (!routing.locales.includes(locale as any)) {
         notFound();
     }
 

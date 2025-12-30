@@ -1,12 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import ImageEditor from '@/components/feature/image-editor';
-import { locales } from '@/i18n';
 
 // 使用 Edge 运行时
 export const runtime = 'edge';
 
 const supportedFormats = ['jpg', 'png', 'webp', 'heic'] as const;
+
+// 预生成所有 locale 和 format 的组合
 type SupportedFormat = typeof supportedFormats[number];
 
 export async function generateMetadata(props: { params: Promise<{ locale: string; format: string }> }) {
