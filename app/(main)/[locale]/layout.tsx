@@ -132,7 +132,7 @@ export default async function LocaleLayout(props: {
 
     return (
         <html lang={locale} className={geistSans.className} suppressHydrationWarning>
-            <body className="bg-background text-foreground antialiased">
+            <body className="bg-background text-foreground antialiased" suppressHydrationWarning>
                 <SoftwareApplicationSchema />
                 <NextIntlClientProvider messages={messages} locale={locale}>
                     <ThemeProvider
