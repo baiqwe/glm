@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import ImageEditor from '@/components/feature/image-editor';
@@ -7,51 +8,70 @@ import { Sparkles, Lock, Zap, Palette, Smartphone, Printer, Users, GraduationCap
 import Link from 'next/link';
 
 export default function HomePage() {
+    const [imageUploaded, setImageUploaded] = useState(false);
+
     return (
         <div className="min-h-screen bg-background">
-            {/* Hero Section */}
-            <HeroSection />
+            {/* Hero + Upload Section - 初始左右布局 */}
+            {!imageUploaded && (
+                <HeroWithUploadSection onImageUploaded={setImageUploaded} />
+            )}
 
-            {/* Main Editor */}
-            <section className="py-16 bg-background">
-                <div className="container px-4 md:px-6">
-                    <ImageEditor defaultMode="grayscale" />
-                </div>
-            </section>
+            {/* Main Editor - 上传后的处理界面 */}
+            {imageUploaded && (
+                <section className="py-8 lg:py-12 bg-background">
+                    <div className="container px-4 md:px-6">
+                        <ImageEditor 
+                            defaultMode="grayscale" 
+                            onImageUploaded={setImageUploaded}
+                            compact={true}
+                        />
+                    </div>
+                </section>
+            )}
 
-            {/* What Section - 什么是 MakeBW */}
-            <WhatSection />
+            {/* 其他内容部分 - 只在未上传时显示 */}
+            {!imageUploaded && (
+                <>
+                    {/* What Section */}
+                    <WhatSection />
 
-            {/* How Section - 如何使用 */}
-            <HowSection />
+                    {/* How Section */}
+                    <HowSection />
 
-            {/* Why Section - 为什么选择 MakeBW */}
-            <WhySection />
+                    {/* Why Section */}
+                    <WhySection />
 
-            {/* Features Section */}
-            <FeaturesSection />
+                    {/* Features Section */}
+                    <FeaturesSection />
 
-            {/* Use Cases / User Stories - 用户案例 */}
-            <UseCasesSection />
+                    {/* Use Cases Section */}
+                    <UseCasesSection />
 
-            {/* Supported Formats Section - 内链建设 */}
-            <SupportedFormatsSection />
+                    {/* Supported Formats Section */}
+                    <SupportedFormatsSection />
 
-            {/* CTA Section */}
-            <CTASection />
+                    {/* CTA Section */}
+                    <CTASection />
+                </>
+            )}
         </div>
     );
 }
 
-function HeroSection() {
+function HeroWithUploadSection({ onImageUploaded }: { onImageUploaded: (uploaded: boolean) => void }) {
     const t = useTranslations('hero');
+    const pathname = usePathname();
+    const pathParts = pathname?.split('/') || [];
+    const locale = (pathParts[1] === 'en' || pathParts[1] === 'zh') ? pathParts[1] : 'en';
+    const isZh = locale === 'zh';
 
     return (
-        <section className="relative py-20 lg:py-32 bg-gradient-to-b from-muted/20 to-background">
-            <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-            <div className="container px-4 md:px-6 relative">
-                <div className="flex flex-col items-center space-y-4 text-center">
-                    <div className="space-y-6">
+        <section className="relative py-12 lg:py-20 bg-gradient-to-b from-muted/20 to-background">
+            <div className="container px-4 md:px-6">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+                    {/* 左侧：标题和描述 */}
+                    <div className="space-y-6 lg:space-y-8">
                         <div className="inline-flex items-center rounded-full px-3 py-1 text-sm bg-primary/10 text-primary mb-4">
                             <span className="mr-2">🖼️</span>
                             {t('badge')}
@@ -63,11 +83,11 @@ function HeroSection() {
                             <span className="text-primary">{t('title_highlight')}</span>
                         </h1>
 
-                        <p className="mt-6 text-xl text-muted-foreground md:text-2xl max-w-3xl mx-auto">
+                        <p className="text-lg text-muted-foreground md:text-xl max-w-xl">
                             {t('subtitle')}
                         </p>
 
-                        <div className="flex items-center justify-center gap-8 pt-8 text-sm text-muted-foreground">
+                        <div className="flex flex-wrap items-center gap-6 pt-4 text-sm text-muted-foreground">
                             <div className="flex items-center gap-2">
                                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                                 {t('feature_1')}
@@ -80,6 +100,17 @@ function HeroSection() {
                                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                                 {t('feature_3')}
                             </div>
+                        </div>
+                    </div>
+
+                    {/* 右侧：上传区域 */}
+                    <div className="flex items-center justify-center min-h-[400px] lg:min-h-[500px]">
+                        <div className="w-full max-w-lg">
+                            <ImageEditor 
+                                defaultMode="grayscale" 
+                                onImageUploaded={onImageUploaded}
+                                compact={false}
+                            />
                         </div>
                     </div>
                 </div>
@@ -209,16 +240,6 @@ function HowSection() {
                                 )}
                             </div>
                         ))}
-                    </div>
-
-                    <div className="text-center mt-12">
-                        <Link
-                            href={`${localePrefix}/photo-to-coloring-page`}
-                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
-                        >
-                            {isZh ? '立即开始' : 'Get Started Now'}
-                            <ArrowRight className="w-4 h-4" />
-                        </Link>
                     </div>
                 </div>
             </div>
@@ -540,7 +561,6 @@ function SupportedFormatsSection() {
 }
 
 function CTASection() {
-    const t = useTranslations('hero');
     const pathname = usePathname();
     const pathParts = pathname?.split('/') || [];
     const locale = (pathParts[1] === 'en' || pathParts[1] === 'zh') ? pathParts[1] : 'en';
