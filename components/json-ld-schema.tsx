@@ -1,8 +1,8 @@
-'use client';
-
 /**
  * JSON-LD Structured Data for SoftwareApplication
  * Helps search engines understand MakeBW as a web application
+ * 
+ * Note: This is a server component to avoid hydration issues
  */
 export function SoftwareApplicationSchema() {
     const schema = {
