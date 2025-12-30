@@ -8,7 +8,7 @@ import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/toaster";
 import { SoftwareApplicationSchema } from "@/components/json-ld-schema";
 import { Geist } from "next/font/google";
-import "../globals.css";
+import "../../globals.css";
 
 // ✅ 必须添加这一行，让前端页面兼容 Cloudflare Edge
 export const runtime = 'edge';
