@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import ImageEditor from '@/components/feature/image-editor';
@@ -9,26 +9,24 @@ import Link from 'next/link';
 
 export default function HomePage() {
     const [imageUploaded, setImageUploaded] = useState(false);
+    const [uploadedImageSrc, setUploadedImageSrc] = useState<string>('');
+    const imageEditorRef = useRef<{ getImageSrc: () => string } | null>(null);
+
+    const handleImageUploaded = (uploaded: boolean, imageSrc?: string) => {
+        setImageUploaded(uploaded);
+        if (imageSrc) {
+            setUploadedImageSrc(imageSrc);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-background">
-            {/* Hero + Upload Section - 初始左右布局 */}
-            {!imageUploaded && (
-                <HeroWithUploadSection onImageUploaded={setImageUploaded} />
-            )}
-
-            {/* Main Editor - 上传后的处理界面 */}
-            {imageUploaded && (
-                <section className="py-8 lg:py-12 bg-background">
-                    <div className="container px-4 md:px-6">
-                        <ImageEditor 
-                            defaultMode="grayscale" 
-                            onImageUploaded={setImageUploaded}
-                            compact={true}
-                        />
-                    </div>
-                </section>
-            )}
+            {/* Hero + Upload Section - 初始左右布局，上传后切换为处理界面 */}
+            <HeroWithUploadSection 
+                onImageUploaded={handleImageUploaded} 
+                imageUploaded={imageUploaded}
+                uploadedImageSrc={uploadedImageSrc}
+            />
 
             {/* 其他内容部分 - 只在未上传时显示 */}
             {!imageUploaded && (
@@ -59,13 +57,38 @@ export default function HomePage() {
     );
 }
 
-function HeroWithUploadSection({ onImageUploaded }: { onImageUploaded: (uploaded: boolean) => void }) {
+function HeroWithUploadSection({ 
+    onImageUploaded,
+    imageUploaded,
+    uploadedImageSrc
+}: { 
+    onImageUploaded: (uploaded: boolean, imageSrc?: string) => void;
+    imageUploaded: boolean;
+    uploadedImageSrc: string;
+}) {
     const t = useTranslations('hero');
     const pathname = usePathname();
     const pathParts = pathname?.split('/') || [];
     const locale = (pathParts[1] === 'en' || pathParts[1] === 'zh') ? pathParts[1] : 'en';
     const isZh = locale === 'zh';
 
+    // 如果已上传，显示处理界面（左右布局）
+    if (imageUploaded) {
+        return (
+            <section className="py-8 lg:py-12 bg-background">
+                <div className="container px-4 md:px-6">
+                    <ImageEditor 
+                        defaultMode="grayscale" 
+                        onImageUploaded={onImageUploaded}
+                        compact={true}
+                        initialImage={uploadedImageSrc}
+                    />
+                </div>
+            </section>
+        );
+    }
+
+    // 未上传时，显示标题+上传的左右布局
     return (
         <section className="relative py-12 lg:py-20 bg-gradient-to-b from-muted/20 to-background">
             <div className="container px-4 md:px-6">

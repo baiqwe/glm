@@ -9,13 +9,11 @@ export const routing = defineRouting({
   locales,
   // Used when no locale matches
   defaultLocale: 'en',
-  // Don't add prefix for default locale
-  localePrefix: 'as-needed'
+  // Always use locale prefix for Cloudflare Pages compatibility
+  localePrefix: 'always'
 });
 
 // Lightweight wrappers around Next.js' navigation APIs
 // that will consider the routing configuration
 export const { Link, redirect, usePathname, useRouter, getPathname } =
   createNavigation(routing);
-
-

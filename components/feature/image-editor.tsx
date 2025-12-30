@@ -13,25 +13,34 @@ import { Download, RefreshCw } from 'lucide-react';
 
 interface ImageEditorProps {
     defaultMode?: ProcessMode;
-    onImageUploaded?: (uploaded: boolean) => void; // 通知父组件图片已上传
+    onImageUploaded?: (uploaded: boolean, imageSrc?: string) => void; // 通知父组件图片已上传，并传递图片数据
     compact?: boolean; // 紧凑模式（用于左右布局）
+    initialImage?: string; // 初始图片（用于状态恢复）
 }
 
 export default function ImageEditor({ 
     defaultMode = 'grayscale',
     onImageUploaded,
-    compact = false
+    compact = false,
+    initialImage
 }: ImageEditorProps) {
     const t = useTranslations('editor');
     const { processImage, downloadImage, convertHeic, isProcessing } = useImageProcessor();
 
-    const [originalImage, setOriginalImage] = useState<string>('');
+    const [originalImage, setOriginalImage] = useState<string>(initialImage || '');
     const [processedImage, setProcessedImage] = useState<string>('');
     const [fileName, setFileName] = useState<string>('image');
     const [mode, setMode] = useState<ProcessMode>(defaultMode);
     const [threshold, setThreshold] = useState<number>(128);
     const [downloadFormat, setDownloadFormat] = useState<'png' | 'jpg'>('png');
     const [hasProcessed, setHasProcessed] = useState(false); // 是否已处理完成
+
+    // 如果从外部传入初始图片，恢复状态
+    useEffect(() => {
+        if (initialImage && initialImage !== originalImage) {
+            setOriginalImage(initialImage);
+        }
+    }, [initialImage]);
 
     // Process image whenever mode or threshold changes
     useEffect(() => {
@@ -59,7 +68,7 @@ export default function ImageEditor({
     // 通知父组件图片上传状态
     useEffect(() => {
         if (onImageUploaded) {
-            onImageUploaded(!!originalImage);
+            onImageUploaded(!!originalImage, originalImage || undefined);
         }
     }, [originalImage, onImageUploaded]);
 
@@ -67,6 +76,10 @@ export default function ImageEditor({
         setOriginalImage(imageSrc);
         setFileName(file.name.replace(/\.[^/.]+$/, '')); // Remove extension
         setHasProcessed(false);
+        // 立即通知父组件，传递图片数据
+        if (onImageUploaded) {
+            onImageUploaded(true, imageSrc);
+        }
     };
 
     const handleDownload = () => {
@@ -80,7 +93,7 @@ export default function ImageEditor({
         setFileName('image');
         setHasProcessed(false);
         if (onImageUploaded) {
-            onImageUploaded(false);
+            onImageUploaded(false, undefined);
         }
     };
 
@@ -196,7 +209,7 @@ export default function ImageEditor({
                         beforeImage={originalImage}
                         afterImage={processedImage || originalImage}
                         isLoading={isProcessing}
-                        autoSlide={hasProcessed && !isProcessing}
+                        autoSlide={hasProcessed && !isProcessing && processedImage !== originalImage}
                         autoSlideDelay={300}
                         className="w-full"
                     />
@@ -213,7 +226,7 @@ export default function ImageEditor({
                 beforeImage={originalImage}
                 afterImage={processedImage || originalImage}
                 isLoading={isProcessing}
-                autoSlide={hasProcessed && !isProcessing}
+                autoSlide={hasProcessed && !isProcessing && processedImage !== originalImage}
                 autoSlideDelay={300}
                 className="max-w-4xl mx-auto"
             />
