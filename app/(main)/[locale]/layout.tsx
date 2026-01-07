@@ -129,9 +129,16 @@ export default async function LocaleLayout(props: {
 
     const messages = await getMessages({ locale });
 
-    // 从 Supabase 获取用户认证状态
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    // 从 Supabase 获取用户认证状态（添加错误处理）
+    let user = null;
+    try {
+        const supabase = await createClient();
+        const { data } = await supabase.auth.getUser();
+        user = data?.user || null;
+    } catch (error) {
+        // Supabase 调用失败时，用户状态设为 null，页面仍可正常渲染
+        console.error('Failed to get user:', error);
+    }
 
     return (
         <html lang={locale} className={geistSans.className} suppressHydrationWarning>
