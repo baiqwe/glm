@@ -98,9 +98,11 @@ export default function Header({ user }: HeaderProps) {
           <ThemeSwitcher />
           {user ? (
             <div className="hidden md:flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">
-                {user.email}
-              </span>
+              <Button asChild size="sm" variant="ghost">
+                <Link href={`${localePrefix}/dashboard`}>
+                  {currentLocale === 'zh' ? '控制台' : 'Dashboard'}
+                </Link>
+              </Button>
               <form action={signOutAction}>
                 <Button type="submit" variant="outline" size="sm">
                   {t('sign_out')}

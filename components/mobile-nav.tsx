@@ -54,8 +54,8 @@ export function MobileNav({ items, user, isDashboard, currentLocale = 'en' }: Mo
           <Link
             href={`/en${pathWithoutLocale}`}
             className={`px-3 py-1.5 rounded text-sm transition-colors ${currentLocale === 'en'
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:text-foreground'
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-muted text-muted-foreground hover:text-foreground'
               }`}
           >
             EN
@@ -63,8 +63,8 @@ export function MobileNav({ items, user, isDashboard, currentLocale = 'en' }: Mo
           <Link
             href={`/zh${pathWithoutLocale}`}
             className={`px-3 py-1.5 rounded text-sm transition-colors ${currentLocale === 'zh'
-                ? 'bg-primary text-primary-foreground'
-                : 'bg-muted text-muted-foreground hover:text-foreground'
+              ? 'bg-primary text-primary-foreground'
+              : 'bg-muted text-muted-foreground hover:text-foreground'
               }`}
           >
             中文
@@ -85,9 +85,11 @@ export function MobileNav({ items, user, isDashboard, currentLocale = 'en' }: Mo
         <div className="mt-auto pt-4 border-t">
           {user ? (
             <div className="flex flex-col gap-2">
-              {user.email && (
-                <p className="text-sm text-muted-foreground">{user.email}</p>
-              )}
+              <Button asChild variant="default" className="w-full">
+                <Link href={`${localePrefix}/dashboard`}>
+                  {currentLocale === 'zh' ? '控制台' : 'Dashboard'}
+                </Link>
+              </Button>
               <form action={signOutAction} className="w-full">
                 <Button type="submit" variant="outline" className="w-full">
                   {currentLocale === 'zh' ? '退出登录' : 'Sign out'}

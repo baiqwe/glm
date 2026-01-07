@@ -12,7 +12,7 @@ export async function GET(
     const { locale } = params;
     const requestUrl = new URL(request.url);
     const code = requestUrl.searchParams.get("code");
-    const next = requestUrl.searchParams.get("next") || `/${locale}`;
+    const next = requestUrl.searchParams.get("next") || `/${locale}/create`;
     const origin = requestUrl.origin;
 
     // 验证 locale
