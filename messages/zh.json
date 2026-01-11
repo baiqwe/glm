@@ -127,7 +127,8 @@
         "refill_upgrade": "升级专业版（推荐）",
         "refill_mini": "或仅充值 $4.99 救急",
         "restore_purchase": "恢复购买",
-        "manage_subscription": "管理订阅"
+        "manage_subscription": "管理订阅",
+        "error": "错误"
     },
     "common": {
         "loading": "加载中...",

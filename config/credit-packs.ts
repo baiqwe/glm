@@ -25,7 +25,7 @@ export const CREDITS_PER_GENERATION = 10;
 // 1. 左侧：Mini Refill (尝鲜/救急)
 export const PLAN_MINI: PricingPlan = {
     id: "mini_refill",
-    productId: "prod_mini_refill", // TODO: Replace with real ID
+    productId: "prod_6UETyUy0QfLOiBUoDY4bvA",
     name: "Mini Refill",
     nameZh: "尝鲜包",
     price: 6.90,
@@ -39,7 +39,7 @@ export const PLAN_MINI: PricingPlan = {
 // 2. 中间：Pro Plan (订阅 - 主推)
 export const PLAN_PRO_MONTHLY: PricingPlan = {
     id: "pro_monthly",
-    productId: "prod_pro_monthly", // TODO: Replace with real ID
+    productId: "prod_2h2XD4fHGPJpaw10Ejl1Ln",
     name: "Pro Monthly",
     nameZh: "专业月卡",
     price: 9.90,
@@ -55,7 +55,7 @@ export const PLAN_PRO_MONTHLY: PricingPlan = {
 
 export const PLAN_PRO_YEARLY: PricingPlan = {
     id: "pro_yearly",
-    productId: "prod_pro_yearly", // TODO: Replace with real ID
+    productId: "prod_25UgT96PYWLilva3hf3P00",
     name: "Pro Yearly",
     nameZh: "专业年卡",
     price: 69.90,
@@ -75,7 +75,7 @@ export const PLAN_PRO_YEARLY: PricingPlan = {
 // 这会让用户觉得月付极其划算。
 export const PLAN_ANCHOR: PricingPlan = {
     id: "lifetime_anchor",
-    productId: "prod_lifetime_pack", // TODO: Replace with real ID
+    productId: "prod_7Lt0uBS0GWSRXj5aRxVyAS",
     name: "Lifetime Pack",
     nameZh: "永久买断包",
     price: 19.90,

@@ -127,7 +127,8 @@
         "refill_upgrade": "Upgrade to Pro (Recommended)",
         "refill_mini": "Or just top up $4.99 for emergency",
         "restore_purchase": "Restore Purchases",
-        "manage_subscription": "Manage Subscription"
+        "manage_subscription": "Manage Subscription",
+        "error": "Error"
     },
     "common": {
         "loading": "Loading...",
