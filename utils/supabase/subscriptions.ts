@@ -7,17 +7,47 @@ export async function createOrUpdateCustomer(
 ) {
   const supabase = createServiceRoleClient();
 
-  const { data: existingCustomer, error: fetchError } = await supabase
+  // First, try to find existing customer by user_id (preserves existing credits from registration)
+  const { data: existingByUserId, error: userIdError } = await supabase
+    .from("customers")
+    .select()
+    .eq("user_id", userId)
+    .single();
+
+  if (userIdError && userIdError.code !== "PGRST116") {
+    throw userIdError;
+  }
+
+  // If found by user_id, update with Creem customer info
+  if (existingByUserId) {
+    const { error } = await supabase
+      .from("customers")
+      .update({
+        creem_customer_id: creemCustomer.id,
+        email: creemCustomer.email,
+        name: creemCustomer.name,
+        country: creemCustomer.country,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", existingByUserId.id);
+
+    if (error) throw error;
+    console.log(`Updated existing customer ${existingByUserId.id} with Creem info`);
+    return existingByUserId.id;
+  }
+
+  // Fallback: try to find by creem_customer_id
+  const { data: existingByCreemId, error: creemIdError } = await supabase
     .from("customers")
     .select()
     .eq("creem_customer_id", creemCustomer.id)
     .single();
 
-  if (fetchError && fetchError.code !== "PGRST116") {
-    throw fetchError;
+  if (creemIdError && creemIdError.code !== "PGRST116") {
+    throw creemIdError;
   }
 
-  if (existingCustomer) {
+  if (existingByCreemId) {
     const { error } = await supabase
       .from("customers")
       .update({
@@ -26,12 +56,13 @@ export async function createOrUpdateCustomer(
         country: creemCustomer.country,
         updated_at: new Date().toISOString(),
       })
-      .eq("id", existingCustomer.id);
+      .eq("id", existingByCreemId.id);
 
     if (error) throw error;
-    return existingCustomer.id;
+    return existingByCreemId.id;
   }
 
+  // Create new customer if not found
   const { data: newCustomer, error } = await supabase
     .from("customers")
     .insert({
@@ -40,14 +71,17 @@ export async function createOrUpdateCustomer(
       email: creemCustomer.email,
       name: creemCustomer.name,
       country: creemCustomer.country,
+      credits: 0, // New customers start with 0, credits will be added separately
       updated_at: new Date().toISOString(),
     })
     .select()
     .single();
 
   if (error) throw error;
+  console.log(`Created new customer ${newCustomer.id}`);
   return newCustomer.id;
 }
+
 
 export async function createOrUpdateSubscription(
   creemSubscription: CreemSubscription,

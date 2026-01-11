@@ -85,24 +85,31 @@ async function handleCheckoutCompleted(event: CreemWebhookEvent) {
       checkout.metadata.user_id
     );
 
-    // Check if this is a credit purchase
-    if (checkout.metadata?.product_type === "credits") {
+    // If subscription exists, create or update it
+    if (checkout.subscription) {
+      await createOrUpdateSubscription(checkout.subscription, customerId);
+    }
+
+    // Add credits if credits are specified in metadata (for both credits and subscription purchases)
+    if (checkout.metadata?.credits) {
+      const credits = typeof checkout.metadata.credits === 'string'
+        ? parseInt(checkout.metadata.credits)
+        : checkout.metadata.credits;
+
       await addCreditsToCustomer(
         customerId,
-        checkout.metadata?.credits,
+        credits,
         checkout.order.id,
-        `Purchased ${checkout.metadata?.credits} credits`
+        `Purchased ${credits} credits (${checkout.metadata?.product_type || 'unknown'})`
       );
-    }
-    // If subscription exists, create or update it
-    else if (checkout.subscription) {
-      await createOrUpdateSubscription(checkout.subscription, customerId);
+      console.log(`Added ${credits} credits to customer ${customerId}`);
     }
   } catch (error) {
     console.error("Error handling checkout completed:", error);
     throw error;
   }
 }
+
 
 async function handleSubscriptionActive(event: CreemWebhookEvent) {
   const subscription = event.object;
