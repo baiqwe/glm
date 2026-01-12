@@ -4,6 +4,7 @@ import { Logo } from "./logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { siteConfig } from "@/config/site";
 
 export function Footer() {
   const pathname = usePathname();
@@ -43,7 +44,7 @@ export function Footer() {
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
               Built by{" "}
-              <span className="font-medium">Bai</span>
+              <span className="font-medium">{siteConfig.author}</span>
             </p>
           </div>
         </div>
@@ -62,8 +63,8 @@ export function Footer() {
               {t('tagline')}
             </p>
             <p className="mt-2 text-xs text-muted-foreground">
-              {currentLocale === 'zh' 
-                ? '🔒 所有图片处理均在浏览器本地完成，从不上传到服务器。' 
+              {currentLocale === 'zh'
+                ? '🔒 所有图片处理均在浏览器本地完成，从不上传到服务器。'
                 : '🔒 All images are processed locally in your browser. Never uploaded to any server.'}
             </p>
           </div>
@@ -124,13 +125,14 @@ export function Footer() {
         {/* Bottom */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
           <p className="text-center text-sm text-muted-foreground md:text-left">
-            © {new Date().getFullYear()} MakeBW.com. {t('rights')}
+            © {new Date().getFullYear()} {siteConfig.domain}. {t('rights')}
           </p>
           <p className="text-center text-sm text-muted-foreground md:text-right">
-            Built by <span className="font-medium">Bai</span>
+            Built by <span className="font-medium">{siteConfig.author}</span>
           </p>
         </div>
       </div>
     </footer>
   );
 }
+

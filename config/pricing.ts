@@ -1,4 +1,4 @@
-// config/credit-packs.ts
+// config/pricing.ts - 价格配置，上站时修改此文件
 
 export type PricingPlan = {
     id: string;

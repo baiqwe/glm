@@ -15,7 +15,7 @@ import {
     calculateCostPerGeneration,
     getLocalizedPlan,
     PricingPlan
-} from "@/config/credit-packs";
+} from "@/config/pricing";
 
 interface PricingSectionProps {
     locale: string;

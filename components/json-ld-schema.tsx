@@ -5,6 +5,7 @@
  * Note: This is a server component to avoid hydration issues
  */
 import { getTranslations } from 'next-intl/server';
+import { siteConfig } from '@/config/site';
 
 export async function SoftwareApplicationSchema({ locale }: { locale: string }) {
     const t = await getTranslations({ locale, namespace: 'metadata' });
@@ -12,7 +13,7 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
     const schema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "MakeBW - Image to Black and White Converter",
+        "name": `${siteConfig.name} - ${t('title')}`,
         "description": t('description'),
         "applicationCategory": "MultimediaApplication",
         "operatingSystem": "Web Browser",
@@ -29,7 +30,7 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
             "Privacy-first browser processing",
             "No upload required"
         ],
-        "screenshot": "https://makebw.com/og-image.png",
+        "screenshot": `${siteConfig.url}/og-image.png`,
         "aggregateRating": {
             "@type": "AggregateRating",
             "ratingValue": "4.8",
@@ -44,3 +45,4 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
         />
     );
 }
+

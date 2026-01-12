@@ -43,6 +43,7 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // 排除 api, _next, 静态资源，以及 auth/callback (新位置)
-  matcher: ['/((?!api|_next|_vercel|auth/callback|.*\\..*).*)', '/(en|zh)/:path*']
+  // ✅ 使用静态宽泛匹配，不依赖动态变量
+  // next-intl 中间件内部会自动处理语言匹配
+  matcher: ['/((?!api|_next|_vercel|auth/callback|.*\\..*).*)',]
 }

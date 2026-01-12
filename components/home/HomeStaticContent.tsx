@@ -7,51 +7,49 @@ interface HomeStaticContentProps {
 }
 
 export default async function HomeStaticContent({ locale }: HomeStaticContentProps) {
-    const isZh = locale === 'zh';
-    const t = await getTranslations({ locale, namespace: 'features' });
+    const tHome = await getTranslations({ locale, namespace: 'home' });
+    const tFeatures = await getTranslations({ locale, namespace: 'features' });
 
     return (
         <>
             {/* What Section */}
-            <WhatSection isZh={isZh} />
+            <WhatSection t={tHome} />
 
             {/* How Section */}
-            <HowSection isZh={isZh} locale={locale} />
+            <HowSection t={tHome} />
 
             {/* Why Section */}
-            <WhySection isZh={isZh} />
+            <WhySection t={tHome} />
 
             {/* Features Section */}
-            <FeaturesSection t={t} />
+            <FeaturesSection t={tFeatures} />
 
             {/* Use Cases Section */}
-            <UseCasesSection isZh={isZh} locale={locale} />
+            <UseCasesSection t={tHome} locale={locale} />
 
             {/* Supported Formats Section */}
-            <SupportedFormatsSection locale={locale} />
+            <SupportedFormatsSection t={tHome} locale={locale} />
 
-            {/* FAQ Section - Added for GSC 'How to' optimization */}
-            <FAQSection isZh={isZh} />
+            {/* FAQ Section */}
+            <FAQSection t={tHome} />
 
             {/* CTA Section */}
-            <CTASection isZh={isZh} locale={locale} />
+            <CTASection t={tHome} locale={locale} />
         </>
     );
 }
 
-function WhatSection({ isZh }: { isZh: boolean }) {
+function WhatSection({ t }: { t: any }) {
     return (
         <section className="py-20 bg-muted/20">
             <div className="container px-4 md:px-6">
                 <div className="max-w-4xl mx-auto">
                     <div className="text-center space-y-4 mb-12">
                         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                            {isZh ? '什么是 MakeBW？' : 'What is MakeBW?'}
+                            {t('what.title')}
                         </h2>
                         <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                            {isZh
-                                ? '正在寻找免费的图片转黑白工具？MakeBW 是最好的在线黑白制作器，可在浏览器中即时处理图像。无论您是想将照片变成填色画，还是想了解如何将图像转换为黑白以进行打印，我们的工具都能安全地处理。'
-                                : 'Looking for a free color to black and white converter? MakeBW is the best online black and white maker that processes images instantly in your browser. Whether you want to turn a photo into a coloring page or learn how to convert image to black and white for printing, our tool handles it all securely.'}
+                            {t('what.desc')}
                         </p>
                     </div>
 
@@ -61,12 +59,10 @@ function WhatSection({ isZh }: { isZh: boolean }) {
                                 <Palette className="w-6 h-6 text-primary" />
                             </div>
                             <h3 className="text-xl font-bold mb-2">
-                                {isZh ? '灰度转换' : 'Grayscale Conversion'}
+                                {t('what.feature_1_title')}
                             </h3>
                             <p className="text-muted-foreground">
-                                {isZh
-                                    ? '将彩色照片转换为经典黑白效果，节省打印成本，创造艺术效果。'
-                                    : 'Convert color photos to classic black and white, save printing costs, create artistic effects.'}
+                                {t('what.feature_1_desc')}
                             </p>
                         </div>
 
@@ -75,12 +71,10 @@ function WhatSection({ isZh }: { isZh: boolean }) {
                                 <Heart className="w-6 h-6 text-primary" />
                             </div>
                             <h3 className="text-xl font-bold mb-2">
-                                {isZh ? '填色画生成' : 'Coloring Page Maker'}
+                                {t('what.feature_2_title')}
                             </h3>
                             <p className="text-muted-foreground">
-                                {isZh
-                                    ? '从任何照片提取线稿，制作可打印的儿童填色画。'
-                                    : 'Extract line art from any photo to create printable coloring pages for kids.'}
+                                {t('what.feature_2_desc')}
                             </p>
                         </div>
 
@@ -89,12 +83,10 @@ function WhatSection({ isZh }: { isZh: boolean }) {
                                 <Sparkles className="w-6 h-6 text-primary" />
                             </div>
                             <h3 className="text-xl font-bold mb-2">
-                                {isZh ? '颜色反转' : 'Color Inversion'}
+                                {t('what.feature_3_title')}
                             </h3>
                             <p className="text-muted-foreground">
-                                {isZh
-                                    ? '创建负片效果，用于特殊设计和艺术创作。'
-                                    : 'Create negative effects for special designs and artistic creation.'}
+                                {t('what.feature_3_desc')}
                             </p>
                         </div>
                     </div>
@@ -104,17 +96,12 @@ function WhatSection({ isZh }: { isZh: boolean }) {
     );
 }
 
-function HowSection({ isZh, locale }: { isZh: boolean; locale: string }) {
-    const steps = isZh ? [
-        { number: 1, title: '上传图片', desc: '拖放或点击选择您的图片。支持 JPG、PNG、WebP、HEIC 格式。' },
-        { number: 2, title: '选择模式', desc: '选择转换模式：灰度、填色画线稿，或颜色反转。' },
-        { number: 3, title: '调整参数', desc: '根据需要调整线条粗细或其他参数，实时预览效果。' },
-        { number: 4, title: '下载保存', desc: '选择 PNG 或 JPG 格式下载，即可使用或打印。' },
-    ] : [
-        { number: 1, title: 'Upload Image', desc: 'Drag and drop or click to select your image. Supports JPG, PNG, WebP, HEIC formats.' },
-        { number: 2, title: 'Choose Mode', desc: 'Select conversion mode: grayscale, coloring page line art, or color inversion.' },
-        { number: 3, title: 'Adjust Settings', desc: 'Adjust line thickness or other parameters as needed, preview in real-time.' },
-        { number: 4, title: 'Download', desc: 'Choose PNG or JPG format and download for use or printing.' },
+function HowSection({ t }: { t: any }) {
+    const steps = [
+        { number: 1, title: t('how.step_1_title'), desc: t('how.step_1_desc') },
+        { number: 2, title: t('how.step_2_title'), desc: t('how.step_2_desc') },
+        { number: 3, title: t('how.step_3_title'), desc: t('how.step_3_desc') },
+        { number: 4, title: t('how.step_4_title'), desc: t('how.step_4_desc') },
     ];
 
     return (
@@ -123,12 +110,10 @@ function HowSection({ isZh, locale }: { isZh: boolean; locale: string }) {
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center space-y-4 mb-12">
                         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                            {isZh ? '如何使用？' : 'How It Works?'}
+                            {t('how.title')}
                         </h2>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            {isZh
-                                ? '只需 4 步，即可完成图片转换。无需注册，无需安装。'
-                                : 'Just 4 steps to complete image conversion. No registration, no installation required.'}
+                            {t('how.subtitle')}
                         </p>
                     </div>
 
@@ -156,17 +141,12 @@ function HowSection({ isZh, locale }: { isZh: boolean; locale: string }) {
     );
 }
 
-function WhySection({ isZh }: { isZh: boolean }) {
-    const reasons = isZh ? [
-        { icon: Lock, title: '100% 隐私保护', desc: '所有图片处理都在您的浏览器本地完成，从不上传到服务器。您的隐私完全受保护。' },
-        { icon: Zap, title: '即时转换', desc: '无需等待上传下载，转换在毫秒内完成。实时预览，立即看到效果。' },
-        { icon: Heart, title: '完全免费', desc: '无需注册，无需付费，无任何限制。专业工具，永久免费使用。' },
-        { icon: Smartphone, title: '随处可用', desc: '桌面、平板、手机都能用。支持所有现代浏览器，随时随地处理图片。' },
-    ] : [
-        { icon: Lock, title: '100% Privacy Protected', desc: 'All image processing happens locally in your browser, never uploaded to servers. Your privacy is completely protected.' },
-        { icon: Zap, title: 'Instant Conversion', desc: 'No waiting for uploads or downloads, conversion happens in milliseconds. Real-time preview, see results immediately.' },
-        { icon: Heart, title: 'Completely Free', desc: 'No registration, no payment, no limits. Professional tools, free forever.' },
-        { icon: Smartphone, title: 'Works Everywhere', desc: 'Desktop, tablet, or mobile. Supports all modern browsers, process images anywhere.' },
+function WhySection({ t }: { t: any }) {
+    const reasons = [
+        { icon: Lock, title: t('why.reason_1_title'), desc: t('why.reason_1_desc') },
+        { icon: Zap, title: t('why.reason_2_title'), desc: t('why.reason_2_desc') },
+        { icon: Heart, title: t('why.reason_3_title'), desc: t('why.reason_3_desc') },
+        { icon: Smartphone, title: t('why.reason_4_title'), desc: t('why.reason_4_desc') },
     ];
 
     return (
@@ -175,12 +155,10 @@ function WhySection({ isZh }: { isZh: boolean }) {
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center space-y-4 mb-12">
                         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                            {isZh ? '为什么选择 MakeBW？' : 'Why Choose MakeBW?'}
+                            {t('why.title')}
                         </h2>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            {isZh
-                                ? '与其他在线工具不同，MakeBW 专注于您的隐私和体验。'
-                                : 'Unlike other online tools, MakeBW focuses on your privacy and experience.'}
+                            {t('why.subtitle')}
                         </p>
                     </div>
 
@@ -258,66 +236,37 @@ function FeaturesSection({ t }: { t: any }) {
     );
 }
 
-function UseCasesSection({ isZh, locale }: { isZh: boolean; locale: string }) {
+function UseCasesSection({ t, locale }: { t: any; locale: string }) {
     const localePrefix = `/${locale}`;
 
-    const useCases = isZh ? [
+    const useCases = [
         {
             icon: Users,
-            title: '家长',
-            desc: '为孩子制作自定义填色画',
-            example: '将家庭照片转换为填色画，让孩子创作独特的艺术作品。',
-            link: { text: '制作填色画 →', href: `${localePrefix}/photo-to-coloring-page` },
+            title: t('use_cases.case_1_title'),
+            desc: t('use_cases.case_1_desc'),
+            example: t('use_cases.case_1_example'),
+            link: { text: t('use_cases.case_1_cta'), href: `${localePrefix}/photo-to-coloring-page` },
         },
         {
             icon: GraduationCap,
-            title: '老师',
-            desc: '创建教学材料',
-            example: '为课堂活动生成教育性填色材料，让学习更有趣。',
-            link: { text: '开始制作 →', href: `${localePrefix}/photo-to-coloring-page` },
+            title: t('use_cases.case_2_title'),
+            desc: t('use_cases.case_2_desc'),
+            example: t('use_cases.case_2_example'),
+            link: { text: t('use_cases.case_2_cta'), href: `${localePrefix}/photo-to-coloring-page` },
         },
         {
             icon: Printer,
-            title: '办公室',
-            desc: '节省打印成本',
-            example: '将彩色文档转为黑白，节省 40-60% 的墨水成本。',
-            link: { text: '转换文档 →', href: `${localePrefix}/color-to-black-and-white` },
+            title: t('use_cases.case_3_title'),
+            desc: t('use_cases.case_3_desc'),
+            example: t('use_cases.case_3_example'),
+            link: { text: t('use_cases.case_3_cta'), href: `${localePrefix}/color-to-black-and-white` },
         },
         {
             icon: Camera,
-            title: '摄影师',
-            desc: '艺术创作',
-            example: '将彩色照片转换为经典黑白效果，突出光影和构图。',
-            link: { text: '转换照片 →', href: `${localePrefix}/color-to-black-and-white` },
-        },
-    ] : [
-        {
-            icon: Users,
-            title: 'Parents',
-            desc: 'Create custom coloring pages for kids',
-            example: 'Convert family photos into coloring pages for kids to create unique artwork.',
-            link: { text: 'Make Coloring Page →', href: `${localePrefix}/photo-to-coloring-page` },
-        },
-        {
-            icon: GraduationCap,
-            title: 'Teachers',
-            desc: 'Create teaching materials',
-            example: 'Generate educational coloring materials for classroom activities.',
-            link: { text: 'Get Started →', href: `${localePrefix}/photo-to-coloring-page` },
-        },
-        {
-            icon: Printer,
-            title: 'Offices',
-            desc: 'Save printing costs',
-            example: 'Convert color documents to black and white, save 40-60% on ink costs.',
-            link: { text: 'Convert Document →', href: `${localePrefix}/color-to-black-and-white` },
-        },
-        {
-            icon: Camera,
-            title: 'Photographers',
-            desc: 'Artistic creation',
-            example: 'Convert color photos to classic black and white, emphasizing light and composition.',
-            link: { text: 'Convert Photo →', href: `${localePrefix}/color-to-black-and-white` },
+            title: t('use_cases.case_4_title'),
+            desc: t('use_cases.case_4_desc'),
+            example: t('use_cases.case_4_example'),
+            link: { text: t('use_cases.case_4_cta'), href: `${localePrefix}/color-to-black-and-white` },
         },
     ];
 
@@ -327,12 +276,10 @@ function UseCasesSection({ isZh, locale }: { isZh: boolean; locale: string }) {
                 <div className="max-w-6xl mx-auto">
                     <div className="text-center space-y-4 mb-12">
                         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                            {isZh ? '谁在使用 MakeBW？' : 'Who Uses MakeBW?'}
+                            {t('use_cases.title')}
                         </h2>
                         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                            {isZh
-                                ? '来自各行各业的用户都在使用 MakeBW 解决他们的图片处理需求。'
-                                : 'Users from all walks of life use MakeBW to solve their image processing needs.'}
+                            {t('use_cases.subtitle')}
                         </p>
                     </div>
 
@@ -369,15 +316,14 @@ function UseCasesSection({ isZh, locale }: { isZh: boolean; locale: string }) {
     );
 }
 
-function SupportedFormatsSection({ locale }: { locale: string }) {
+function SupportedFormatsSection({ t, locale }: { t: any; locale: string }) {
     const localePrefix = `/${locale}`;
-    const isZh = locale === 'zh';
 
     const formats = [
-        { name: 'JPG', href: `${localePrefix}/jpg-to-black-and-white`, desc: isZh ? '最常用的照片格式' : 'Most common photo format' },
-        { name: 'PNG', href: `${localePrefix}/png-to-black-and-white`, desc: isZh ? '支持透明背景' : 'Supports transparency' },
-        { name: 'WebP', href: `${localePrefix}/webp-to-black-and-white`, desc: isZh ? '现代高效格式' : 'Modern efficient format' },
-        { name: 'HEIC', href: `${localePrefix}/heic-to-black-and-white`, desc: isZh ? 'iPhone 默认格式' : 'iPhone default format' },
+        { name: 'JPG', href: `${localePrefix}/jpg-to-black-and-white`, desc: t('formats.format_1_desc') },
+        { name: 'PNG', href: `${localePrefix}/png-to-black-and-white`, desc: t('formats.format_2_desc') },
+        { name: 'WebP', href: `${localePrefix}/webp-to-black-and-white`, desc: t('formats.format_3_desc') },
+        { name: 'HEIC', href: `${localePrefix}/heic-to-black-and-white`, desc: t('formats.format_4_desc') },
     ];
 
     return (
@@ -386,12 +332,10 @@ function SupportedFormatsSection({ locale }: { locale: string }) {
                 <div className="mx-auto max-w-6xl space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                            {isZh ? '支持的图片格式' : 'Supported Image Formats'}
+                            {t('formats.title')}
                         </h2>
                         <p className="mx-auto max-w-3xl text-muted-foreground text-lg">
-                            {isZh
-                                ? '支持所有主流图片格式，一键转换为黑白。点击下方格式查看详细说明。'
-                                : 'Support for all major image formats. Convert to black and white with one click. Click any format below for details.'}
+                            {t('formats.subtitle')}
                         </p>
                     </div>
 
@@ -414,7 +358,7 @@ function SupportedFormatsSection({ locale }: { locale: string }) {
                                     </p>
                                     <div className="pt-2">
                                         <span className="text-sm font-medium text-primary group-hover:underline">
-                                            {isZh ? '转换为黑白 →' : 'Convert to B&W →'}
+                                            {t('formats.cta')}
                                         </span>
                                     </div>
                                 </div>
@@ -426,26 +370,26 @@ function SupportedFormatsSection({ locale }: { locale: string }) {
                     <div className="pt-8 border-t">
                         <div className="text-center space-y-6">
                             <h3 className="text-2xl font-bold">
-                                {isZh ? '更多工具' : 'More Tools'}
+                                {t('formats.more_tools_title')}
                             </h3>
                             <div className="flex flex-wrap justify-center gap-4">
                                 <Link
                                     href={`${localePrefix}/photo-to-coloring-page`}
                                     className="px-6 py-3 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-medium"
                                 >
-                                    {isZh ? '填色画生成器' : 'Coloring Page Maker'}
+                                    {t('formats.tool_coloring')}
                                 </Link>
                                 <Link
                                     href={`${localePrefix}/color-to-black-and-white`}
                                     className="px-6 py-3 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-medium"
                                 >
-                                    {isZh ? '灰度转换器' : 'Grayscale Converter'}
+                                    {t('formats.tool_grayscale')}
                                 </Link>
                                 <Link
                                     href={`${localePrefix}/invert-colors`}
                                     className="px-6 py-3 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors font-medium"
                                 >
-                                    {isZh ? '反色工具' : 'Invert Colors'}
+                                    {t('formats.tool_invert')}
                                 </Link>
                             </div>
                         </div>
@@ -456,45 +400,12 @@ function SupportedFormatsSection({ locale }: { locale: string }) {
     );
 }
 
-function FAQSection({ isZh }: { isZh: boolean }) {
-    const faqs = isZh ? [
-        {
-            q: "如何将图片转换为黑白？",
-            a: "1. 上传您的照片到 MakeBW。\n2. 选择'灰度'模式或调整阈值滑块。\n3. 点击下载。就是这么简单！所有处理都在浏览器中完成，无需上传服务器。"
-        },
-        {
-            q: "MakeBW 是免费的吗？",
-            a: "是的，MakeBW 是完全免费的黑白制作工具。没有隐藏费用，没有水印，也不需要注册。"
-        },
-        {
-            q: "可以将照片变成填色画吗？",
-            a: "当然可以！只需选择'填色画'模式，我们的智能算法会自动提取线条，生成清晰的黑白线稿，非常适合打印给孩子填色。"
-        },
-        {
-            q: "支持哪些图片格式？",
-            a: "我们支持 JPG, PNG, WebP, 以及 iPhone 默认的 HEIC 格式。所有格式都可以即时转换为黑白。"
-        },
-        {
-            q: "转换后的图片质量如何？",
-            a: "MakeBW 保持原始图片的分辨率。对于线稿提取，我们提供参数调整功能，确保您获得最清晰的边缘，非常适合高分辨率打印。"
-        }
-    ] : [
-        {
-            q: "How to convert image to black and white?",
-            a: "1. Upload your photo to MakeBW.\n2. Choose 'Grayscale' mode or adjust the threshold slider.\n3. Click Download. It's that simple! All processing happens in your browser, ensuring 100% privacy."
-        },
-        {
-            q: "Is MakeBW free?",
-            a: "Yes, MakeBW is a free online color to black and white converter. No hidden fees, no watermarks, and no registration required."
-        },
-        {
-            q: "Can I turn a photo into a coloring page?",
-            a: "Absolutely! Just select 'Coloring Page' mode. Our smart algorithm automatically extracts line art to create clear black and white coloring pages perfect for printing."
-        },
-        {
-            q: "What formats are supported?",
-            a: "We support JPG, PNG, WebP, and HEIC (iPhone default). All formats can be processed instantly."
-        }
+function FAQSection({ t }: { t: any }) {
+    const faqs = [
+        { q: t('faq.q1'), a: t('faq.a1') },
+        { q: t('faq.q2'), a: t('faq.a2') },
+        { q: t('faq.q3'), a: t('faq.a3') },
+        { q: t('faq.q4'), a: t('faq.a4') },
     ];
 
     return (
@@ -503,10 +414,10 @@ function FAQSection({ isZh }: { isZh: boolean }) {
                 <div className="max-w-4xl mx-auto space-y-12">
                     <div className="text-center space-y-4">
                         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-                            {isZh ? '常见问题' : 'Frequently Asked Questions'}
+                            {t('faq.title')}
                         </h2>
                         <p className="text-lg text-muted-foreground">
-                            {isZh ? '了解更多关于图片黑白转换的信息' : 'Learn more about converting images to black and white'}
+                            {t('faq.subtitle')}
                         </p>
                     </div>
 
@@ -526,7 +437,7 @@ function FAQSection({ isZh }: { isZh: boolean }) {
     );
 }
 
-function CTASection({ isZh, locale }: { isZh: boolean; locale: string }) {
+function CTASection({ t, locale }: { t: any; locale: string }) {
     const localePrefix = `/${locale}`;
 
     return (
@@ -535,25 +446,23 @@ function CTASection({ isZh, locale }: { isZh: boolean; locale: string }) {
                 <div className="mx-auto max-w-4xl text-center space-y-8">
                     <div className="space-y-6">
                         <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-                            {isZh ? '立即开始使用' : 'Start Converting Today'}
+                            {t('cta.title')}
                         </h2>
                         <p className="mx-auto max-w-2xl text-muted-foreground text-lg">
-                            {isZh
-                                ? '免费、快速、完全私密。无需注册，立即开始。'
-                                : 'Free, fast, and completely private. No sign-up required.'}
+                            {t('cta.subtitle')}
                         </p>
                         <div className="flex flex-wrap justify-center gap-4 pt-4">
                             <Link
                                 href={`${localePrefix}/color-to-black-and-white`}
                                 className="px-8 py-4 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium text-lg"
                             >
-                                {isZh ? '开始转换' : 'Start Converting'}
+                                {t('cta.button_start')}
                             </Link>
                             <Link
                                 href={`${localePrefix}/photo-to-coloring-page`}
                                 className="px-8 py-4 rounded-full bg-muted hover:bg-muted/80 transition-colors font-medium text-lg"
                             >
-                                {isZh ? '制作填色画' : 'Make Coloring Page'}
+                                {t('cta.button_coloring')}
                             </Link>
                         </div>
                     </div>

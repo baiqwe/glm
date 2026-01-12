@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import { Loader2, Zap } from "lucide-react";
 import { useState } from "react";
-import { PLAN_MINI, PLAN_PRO_MONTHLY, PricingPlan } from "@/config/credit-packs";
+import { PLAN_MINI, PLAN_PRO_MONTHLY, PricingPlan } from "@/config/pricing";
 import { toast } from "@/hooks/use-toast";
 
 interface QuickRefillModalProps {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import Replicate from "replicate";
-import { CREDITS_PER_GENERATION } from "@/config/credit-packs";
+import { CREDITS_PER_GENERATION } from "@/config/pricing";
 
 // Required for Cloudflare Pages deployment
 export const runtime = 'edge';

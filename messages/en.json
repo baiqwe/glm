@@ -137,5 +137,92 @@
         "cancel": "Cancel",
         "confirm": "Confirm",
         "close": "Close"
+    },
+    "home": {
+        "what": {
+            "title": "What is MakeBW?",
+            "desc": "Looking for a free color to black and white converter? MakeBW is the best online black and white maker that processes images instantly in your browser. Whether you want to turn a photo into a coloring page or learn how to convert image to black and white for printing, our tool handles it all securely.",
+            "feature_1_title": "Grayscale Conversion",
+            "feature_1_desc": "Convert color photos to classic black and white, save printing costs, create artistic effects.",
+            "feature_2_title": "Coloring Page Maker",
+            "feature_2_desc": "Extract line art from any photo to create printable coloring pages for kids.",
+            "feature_3_title": "Color Inversion",
+            "feature_3_desc": "Create negative effects for special designs and artistic creation."
+        },
+        "how": {
+            "title": "How It Works?",
+            "subtitle": "Just 4 steps to complete image conversion. No registration, no installation required.",
+            "step_1_title": "Upload Image",
+            "step_1_desc": "Drag and drop or click to select your image. Supports JPG, PNG, WebP, HEIC formats.",
+            "step_2_title": "Choose Mode",
+            "step_2_desc": "Select conversion mode: grayscale, coloring page line art, or color inversion.",
+            "step_3_title": "Adjust Settings",
+            "step_3_desc": "Adjust line thickness or other parameters as needed, preview in real-time.",
+            "step_4_title": "Download",
+            "step_4_desc": "Choose PNG or JPG format and download for use or printing."
+        },
+        "why": {
+            "title": "Why Choose MakeBW?",
+            "subtitle": "Unlike other online tools, MakeBW focuses on your privacy and experience.",
+            "reason_1_title": "100% Privacy Protected",
+            "reason_1_desc": "All image processing happens locally in your browser, never uploaded to servers. Your privacy is completely protected.",
+            "reason_2_title": "Instant Conversion",
+            "reason_2_desc": "No waiting for uploads or downloads, conversion happens in milliseconds. Real-time preview, see results immediately.",
+            "reason_3_title": "Completely Free",
+            "reason_3_desc": "No registration, no payment, no limits. Professional tools, free forever.",
+            "reason_4_title": "Works Everywhere",
+            "reason_4_desc": "Desktop, tablet, or mobile. Supports all modern browsers, process images anywhere."
+        },
+        "use_cases": {
+            "title": "Who Uses MakeBW?",
+            "subtitle": "Users from all walks of life use MakeBW to solve their image processing needs.",
+            "case_1_title": "Parents",
+            "case_1_desc": "Create custom coloring pages for kids",
+            "case_1_example": "Convert family photos into coloring pages for kids to create unique artwork.",
+            "case_1_cta": "Make Coloring Page →",
+            "case_2_title": "Teachers",
+            "case_2_desc": "Create teaching materials",
+            "case_2_example": "Generate educational coloring materials for classroom activities.",
+            "case_2_cta": "Get Started →",
+            "case_3_title": "Offices",
+            "case_3_desc": "Save printing costs",
+            "case_3_example": "Convert color documents to black and white, save 40-60% on ink costs.",
+            "case_3_cta": "Convert Document →",
+            "case_4_title": "Photographers",
+            "case_4_desc": "Artistic creation",
+            "case_4_example": "Convert color photos to classic black and white, emphasizing light and composition.",
+            "case_4_cta": "Convert Photo →"
+        },
+        "formats": {
+            "title": "Supported Image Formats",
+            "subtitle": "Support for all major image formats. Convert to black and white with one click. Click any format below for details.",
+            "format_1_desc": "Most common photo format",
+            "format_2_desc": "Supports transparency",
+            "format_3_desc": "Modern efficient format",
+            "format_4_desc": "iPhone default format",
+            "cta": "Convert to B&W →",
+            "more_tools_title": "More Tools",
+            "tool_coloring": "Coloring Page Maker",
+            "tool_grayscale": "Grayscale Converter",
+            "tool_invert": "Invert Colors"
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "subtitle": "Learn more about converting images to black and white",
+            "q1": "How to convert image to black and white?",
+            "a1": "1. Upload your photo to MakeBW.\n2. Choose 'Grayscale' mode or adjust the threshold slider.\n3. Click Download. It's that simple! All processing happens in your browser, ensuring 100% privacy.",
+            "q2": "Is MakeBW free?",
+            "a2": "Yes, MakeBW is a free online color to black and white converter. No hidden fees, no watermarks, and no registration required.",
+            "q3": "Can I turn a photo into a coloring page?",
+            "a3": "Absolutely! Just select 'Coloring Page' mode. Our smart algorithm automatically extracts line art to create clear black and white coloring pages perfect for printing.",
+            "q4": "What formats are supported?",
+            "a4": "We support JPG, PNG, WebP, and HEIC (iPhone default). All formats can be processed instantly."
+        },
+        "cta": {
+            "title": "Start Converting Today",
+            "subtitle": "Free, fast, and completely private. No sign-up required.",
+            "button_start": "Start Converting",
+            "button_coloring": "Make Coloring Page"
+        }
     }
 }

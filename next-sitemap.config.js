@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: 'https://makebw.com',
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://makebw.com',
     generateRobotsTxt: true,
     generateIndexSitemap: false,
 
@@ -20,11 +20,11 @@ module.exports = {
     // Generate alternate language links
     alternateRefs: [
         {
-            href: 'https://makebw.com/en',
+            href: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://makebw.com'}/en`,
             hreflang: 'en',
         },
         {
-            href: 'https://makebw.com/zh',
+            href: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://makebw.com'}/zh`,
             hreflang: 'zh',
         },
     ],
@@ -117,3 +117,4 @@ module.exports = {
         };
     },
 };
+
