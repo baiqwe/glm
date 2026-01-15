@@ -4,12 +4,8 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
 const nextConfig: NextConfig = {
-  devIndicators: {
-    appIsrStatus: false,
-  },
-
   images: {
-    unoptimized: true, // Required for Cloudflare Pages
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: 'https',
@@ -28,21 +24,24 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'lh3.googleusercontent.com', // Google Avatar
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.bigmodel.cn',
         pathname: '/**',
       },
     ],
   },
 
-  // Configure webpack to ignore the external folder
   webpack: (config: any) => {
     config.watchOptions = {
       ...config.watchOptions,
-      ignored: ['**/Chinesename.club/**', '**/node_modules/**'],
+      ignored: ['**/node_modules/**'],
     };
     return config;
   },
 };
 
 export default withNextIntl(nextConfig);
-
