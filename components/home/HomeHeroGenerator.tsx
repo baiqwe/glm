@@ -45,7 +45,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
     const { credits, refetchCredits } = useCredits();
     const { toast } = useToast();
 
-    const [prompt, setPrompt] = useState("");
+    const [prompt, setPrompt] = useState("A super cute fluffy white kitten with big blue eyes, sitting in a cozy basket with colorful yarn balls, soft studio lighting, high detail, 8k, Disney pixar style 3d render, cinematic composition");
     const [selectedStyle, setSelectedStyle] = useState("default");
     const [selectedRatio, setSelectedRatio] = useState("1:1");
     const [resultImage, setResultImage] = useState<string | null>(null);
