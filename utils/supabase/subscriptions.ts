@@ -26,7 +26,7 @@ export async function createOrUpdateCustomer(
       .from("customers")
       .update({
         creem_customer_id: creemCustomer.id,
-        email: creemCustomer.email,
+        // email: creemCustomer.email, // Don't overwrite email with payment email
         name: creemCustomer.name,
         country: creemCustomer.country,
         updated_at: new Date().toISOString(),
