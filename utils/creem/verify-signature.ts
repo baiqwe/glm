@@ -29,7 +29,13 @@ export async function verifyCreemWebhookSignature(
       .join("");
 
     // Timing-safe comparison
-    return timingSafeEqual(signature, calculatedSignature);
+    const isValid = timingSafeEqual(signature, calculatedSignature);
+
+    if (!isValid) {
+      console.log(`Signature verification failed. Received: ${signature}, Calculated: ${calculatedSignature}`);
+    }
+
+    return isValid;
   } catch (error) {
     console.error("Error verifying webhook signature:", error);
     return false;

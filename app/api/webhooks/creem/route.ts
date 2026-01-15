@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       !signature ||
       !(await verifyCreemWebhookSignature(body, signature, CREEM_WEBHOOK_SECRET))
     ) {
-      console.error("Invalid webhook signature");
+      console.error("Invalid webhook signature. Received:", signature, "Expected (calc): see verify logs");
       return new NextResponse("Invalid signature", { status: 401 });
     }
 
