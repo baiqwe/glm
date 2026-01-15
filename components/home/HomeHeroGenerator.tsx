@@ -10,7 +10,6 @@ import Image from 'next/image';
 import { QuickRefillModal } from '@/components/payment/quick-refill-modal';
 import { useToast } from '@/hooks/use-toast';
 import { useCredits } from '@/hooks/use-credits';
-import confetti from 'canvas-confetti';
 
 // 风格选项
 const STYLES = [
@@ -118,6 +117,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
             if (data.url) {
                 setResultImage(data.url);
                 await refetchCredits();
+                const confetti = (await import('canvas-confetti')).default;
                 confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 } });
             }
         } catch (err: any) {
