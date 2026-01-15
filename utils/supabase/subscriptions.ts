@@ -15,11 +15,13 @@ export async function createOrUpdateCustomer(
     .single();
 
   if (userIdError && userIdError.code !== "PGRST116") {
+    console.error("Error finding customer by user_id:", userIdError);
     throw userIdError;
   }
 
   // If found by user_id, update with Creem customer info
   if (existingByUserId) {
+    console.log("Found existing customer by user_id:", existingByUserId.id);
     const { error } = await supabase
       .from("customers")
       .update({
@@ -31,7 +33,10 @@ export async function createOrUpdateCustomer(
       })
       .eq("id", existingByUserId.id);
 
-    if (error) throw error;
+    if (error) {
+      console.error("Error updating customer by user_id:", error);
+      throw error;
+    }
     console.log(`Updated existing customer ${existingByUserId.id} with Creem info`);
     return existingByUserId.id;
   }
@@ -44,10 +49,12 @@ export async function createOrUpdateCustomer(
     .single();
 
   if (creemIdError && creemIdError.code !== "PGRST116") {
+    console.error("Error finding customer by creem_id:", creemIdError);
     throw creemIdError;
   }
 
   if (existingByCreemId) {
+    console.log("Found existing customer by creem_id:", existingByCreemId.id);
     const { error } = await supabase
       .from("customers")
       .update({

@@ -111,9 +111,10 @@ async function handleCheckoutCompleted(event: CreemWebhookEvent) {
 }
 
 
+
 async function handleSubscriptionActive(event: CreemWebhookEvent) {
   const subscription = event.object;
-  console.log("Processing active subscription:", subscription);
+  console.log("Processing active subscription:", subscription.id);
 
   try {
     // Create or update customer
@@ -124,6 +125,11 @@ async function handleSubscriptionActive(event: CreemWebhookEvent) {
 
     // Create or update subscription
     await createOrUpdateSubscription(subscription, customerId);
+
+    // Note: We typically rely on checkout.completed for initial credits
+    // But if that fails, we might want to check here?
+    // For now, let's keep it simple to avoid double crediting. 
+    // If user reports missing credits, we check logs.
   } catch (error) {
     console.error("Error handling subscription active:", error);
     throw error;
@@ -132,7 +138,7 @@ async function handleSubscriptionActive(event: CreemWebhookEvent) {
 
 async function handleSubscriptionPaid(event: CreemWebhookEvent) {
   const subscription = event.object;
-  console.log("Processing paid subscription:", subscription);
+  console.log("Processing paid subscription:", subscription.id);
 
   try {
     // Update subscription status and period
@@ -141,6 +147,24 @@ async function handleSubscriptionPaid(event: CreemWebhookEvent) {
       subscription.metadata?.user_id
     );
     await createOrUpdateSubscription(subscription, customerId);
+
+    // Add credits for renewal (Recurring Payment)
+    if (subscription.metadata?.credits) {
+      const credits = typeof subscription.metadata.credits === 'string'
+        ? parseInt(subscription.metadata.credits)
+        : subscription.metadata.credits;
+
+      if (credits > 0) {
+        await addCreditsToCustomer(
+          customerId,
+          credits,
+          undefined, // We don't have order ID here directly usually, or it's in a different field
+          `Subscription renewal credits (${subscription.metadata.product_type || 'subscription'})`
+        );
+        console.log(`Added ${credits} renewal credits to customer ${customerId}`);
+      }
+    }
+
   } catch (error) {
     console.error("Error handling subscription paid:", error);
     throw error;
