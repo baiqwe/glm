@@ -76,7 +76,7 @@ export async function GET(request: Request) {
                 getAll() {
                     return cookies;
                 },
-                setAll(newCookies) {
+                setAll(newCookies: { name: string; value: string; options?: any }[]) {
                     cookiesToSet.push(...newCookies);
                 },
             },
