@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
         getAll() {
           return request.cookies.getAll()
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
           // 同时更新 request 和 response
           // 更新 request 是为了让后续逻辑能读到最新 Cookie
           cookiesToSet.forEach(({ name, value }) => {
