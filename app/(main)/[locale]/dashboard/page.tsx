@@ -11,9 +11,13 @@ export default async function DashboardPage(props: { params: Promise<{ locale: s
 
     const supabase = await createClient();
 
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    let user = null;
+    try {
+        const { data } = await supabase.auth.getUser();
+        user = data?.user || null;
+    } catch (error) {
+        console.error("Error fetching user in dashboard:", error);
+    }
 
     if (!user) {
         return redirect(`/${locale}/sign-in`);

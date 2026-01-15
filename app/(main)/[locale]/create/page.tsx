@@ -5,8 +5,14 @@ import HomeHeroGenerator from "@/components/home/HomeHeroGenerator";
 export const runtime = 'nodejs';
 
 export default async function CreatePage() {
-    const supabase = await createClient();
-    const { data: { user } } = await supabase.auth.getUser();
+    let user = null;
+    try {
+        const supabase = await createClient();
+        const { data } = await supabase.auth.getUser();
+        user = data?.user || null;
+    } catch (error) {
+        console.error("Error fetching user:", error);
+    }
 
     return (
         <div className="bg-slate-950 min-h-screen">
