@@ -32,6 +32,11 @@ const nextConfig: NextConfig = {
         hostname: '*.bigmodel.cn',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: '*.ufileos.com',
+        pathname: '/**',
+      },
     ],
   },
 
