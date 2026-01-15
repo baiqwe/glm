@@ -18,9 +18,15 @@ interface NavItem {
   href: string;
 }
 
-export default function Header({ user }: HeaderProps) {
+import { useUser } from "@/hooks/use-user";
+
+export default function Header({ user: initialUser }: HeaderProps) {
   const pathname = usePathname();
   const t = useTranslations('nav');
+  const { user: clientUser, loading } = useUser();
+
+  // Use server-side user initially (for hydration/SSR), then switch to client-side user
+  const user = loading ? initialUser : clientUser;
 
   const pathParts = pathname?.split('/') || [];
   const currentLocale = (pathParts[1] === 'en' || pathParts[1] === 'zh') ? pathParts[1] : 'en';
