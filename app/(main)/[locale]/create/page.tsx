@@ -1,15 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
-import dynamic from 'next/dynamic';
-
-const HomeHeroGenerator = dynamic(
-    () => import('@/components/home/HomeHeroGenerator'),
-    { ssr: false }
-);
+import HomeClientWrapper from "@/components/home/HomeClientWrapper";
 
 // Use Node.js runtime for Vercel
 export const runtime = 'nodejs';
-const dynamicConfig = 'force-dynamic';
-export { dynamicConfig as dynamic };
+export const dynamic = 'force-dynamic';
 
 export default async function CreatePage() {
     let user = null;
@@ -23,9 +17,9 @@ export default async function CreatePage() {
 
     return (
         <div className="bg-slate-950 min-h-screen">
-            <HomeHeroGenerator
-                onShowStaticContent={() => { }}
+            <HomeClientWrapper
                 user={user}
+                staticContent={null}
             />
         </div>
     );
