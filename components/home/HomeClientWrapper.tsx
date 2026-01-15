@@ -1,7 +1,12 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import HomeHeroGenerator from './HomeHeroGenerator';
+import dynamic from 'next/dynamic';
+
+const HomeHeroGenerator = dynamic(
+    () => import('./HomeHeroGenerator'),
+    { ssr: false }
+);
 
 interface HomeClientWrapperProps {
     staticContent: ReactNode;

@@ -1,7 +1,11 @@
 import { createClient } from "@/utils/supabase/server";
-import HomeHeroGenerator from "@/components/home/HomeHeroGenerator";
+import nextDynamic from 'next/dynamic';
 
-// Use Node.js runtime for Vercel
+const HomeHeroGenerator = nextDynamic(
+    () => import('@/components/home/HomeHeroGenerator'),
+    { ssr: false }
+);
+
 // Use Node.js runtime for Vercel
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
