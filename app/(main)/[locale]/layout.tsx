@@ -15,6 +15,7 @@ import { siteConfig } from "@/config/site";
 import "../../globals.css";
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 const geistSans = Geist({
     display: "swap",

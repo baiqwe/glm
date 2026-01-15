@@ -6,6 +6,8 @@ import HomeStaticContent from '@/components/home/HomeStaticContent';
 
 import { createClient } from "@/utils/supabase/server";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;
     const { locale } = params;
