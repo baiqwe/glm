@@ -207,8 +207,8 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                 key={ratio.id}
                                                 onClick={() => setSelectedRatio(ratio.id)}
                                                 className={`px-3 py-2 rounded-lg text-sm font-mono transition-all ${selectedRatio === ratio.id
-                                                        ? "bg-indigo-600 text-white"
-                                                        : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                                                    ? "bg-indigo-600 text-white"
+                                                    : "bg-slate-800 text-slate-400 hover:bg-slate-700"
                                                     }`}
                                             >
                                                 {ratio.id}
@@ -228,8 +228,8 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                 key={style.id}
                                                 onClick={() => setSelectedStyle(style.id)}
                                                 className={`px-3 py-2 rounded-lg text-sm transition-all flex items-center gap-1.5 ${selectedStyle === style.id
-                                                        ? "bg-indigo-600 text-white"
-                                                        : "bg-slate-800 text-slate-400 hover:bg-slate-700"
+                                                    ? "bg-indigo-600 text-white"
+                                                    : "bg-slate-800 text-slate-400 hover:bg-slate-700"
                                                     }`}
                                             >
                                                 <span>{style.icon}</span>
@@ -267,7 +267,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                     ) : (
                                         <>
                                             <Wand2 className="mr-2 h-5 w-5" />
-                                            {locale === 'zh' ? `分享后生成（2 积分）` : `Generate (10 Credits)`}
+                                            {locale === 'zh' ? `生成（10 积分）` : `Generate (10 Credits)`}
                                         </>
                                     )}
                                 </Button>
