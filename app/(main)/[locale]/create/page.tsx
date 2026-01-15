@@ -1,14 +1,19 @@
 import { createClient } from "@/utils/supabase/server";
-import CreateClient from "@/components/feature/create-client";
+import HomeHeroGenerator from "@/components/home/HomeHeroGenerator";
 
-// Required for Cloudflare Pages deployment
-export const runtime = 'edge';
+// Use Node.js runtime for Vercel
+export const runtime = 'nodejs';
 
 export default async function CreatePage() {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
     return (
-        <CreateClient user={user} />
+        <div className="bg-slate-950 min-h-screen">
+            <HomeHeroGenerator
+                onShowStaticContent={() => { }}
+                user={user}
+            />
+        </div>
     );
 }

@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-    siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://makebw.com',
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://glmimageonline.com',
     generateRobotsTxt: true,
     generateIndexSitemap: false,
 
@@ -14,17 +14,17 @@ module.exports = {
         '/*/sign-in',       // Auth pages
         '/*/sign-up',
         '/*/forgot-password',
-        '/*/create',        // AI Studio (requires login)
+        '/*/dashboard',     // User dashboard (private)
     ],
 
     // Generate alternate language links
     alternateRefs: [
         {
-            href: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://makebw.com'}/en`,
+            href: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://glmimageonline.com'}/en`,
             hreflang: 'en',
         },
         {
-            href: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://makebw.com'}/zh`,
+            href: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://glmimageonline.com'}/zh`,
             hreflang: 'zh',
         },
     ],
@@ -40,48 +40,44 @@ module.exports = {
                     '/*/sign-in',
                     '/*/sign-up',
                     '/*/forgot-password',
-                    '/*/create',
+                    '/*/dashboard',
                 ],
             },
         ],
     },
 
-    // ✅ 核心修复：手动添加动态路由路径
+    // Add additional paths for GLM-Image
     additionalPaths: async (config) => {
         const locales = ['en', 'zh'];
-        const formats = ['jpg', 'png', 'webp', 'heic'];
         const staticPages = [
-            'color-to-black-and-white',
-            'photo-to-coloring-page',
-            'invert-colors',
+            'create',          // AI Studio (public landing page)
+            'pricing',
             'privacy',
             'terms',
             'about'
         ];
         const result = [];
 
-        // Add format-specific pages
-        for (const locale of locales) {
-            for (const format of formats) {
-                const path = `/${locale}/${format}-to-black-and-white`;
-
-                result.push({
-                    loc: path,
-                    changefreq: 'weekly',
-                    priority: 0.9,
-                    lastmod: new Date().toISOString(),
-                });
-            }
-        }
-
-        // Add static feature and policy pages
+        // Add static pages
         for (const locale of locales) {
             for (const page of staticPages) {
-                const priority = page.includes('privacy') || page.includes('terms') ? 0.5 : 0.8;
+                let priority = 0.8;
+                let changefreq = 'weekly';
+
+                if (page === 'create') {
+                    priority = 0.95;  // High priority for main product page
+                    changefreq = 'daily';
+                } else if (page === 'pricing') {
+                    priority = 0.85;
+                } else if (page === 'privacy' || page === 'terms') {
+                    priority = 0.5;
+                    changefreq = 'monthly';
+                }
+
                 result.push({
                     loc: `/${locale}/${page}`,
-                    changefreq: page.includes('privacy') || page.includes('terms') ? 'monthly' : 'weekly',
-                    priority: priority,
+                    changefreq,
+                    priority,
                     lastmod: new Date().toISOString(),
                 });
             }
@@ -99,12 +95,11 @@ module.exports = {
             // Homepage has highest priority
             priority = 1.0;
             changefreq = 'daily';
-        } else if (path.includes('-to-black-and-white')) {
-            // Format pages are important landing pages
-            priority = 0.9;
-            changefreq = 'weekly';
-        } else if (path.includes('photo-to-coloring-page') || path.includes('color-to-black-and-white')) {
-            // Feature pages
+        } else if (path.includes('/create')) {
+            // AI Studio page is very important
+            priority = 0.95;
+            changefreq = 'daily';
+        } else if (path.includes('/pricing')) {
             priority = 0.8;
             changefreq = 'weekly';
         }

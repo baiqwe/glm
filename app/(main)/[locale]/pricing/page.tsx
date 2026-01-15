@@ -1,10 +1,11 @@
 import { PricingSection } from "@/components/marketing/pricing-section";
 import { setRequestLocale } from 'next-intl/server';
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
-    title: "Pricing - MakeBW",
-    description: "Pricing plans for MakeBW AI tools."
+    title: `Pricing - ${siteConfig.name}`,
+    description: "Flexible pricing plans for GLM-Image AI image generation. Get credits for text-to-image generation powered by CogView-4."
 };
 
 type Props = {
@@ -16,7 +17,7 @@ export default async function PricingPage({ params }: Props) {
     setRequestLocale(locale);
 
     return (
-        <div className="bg-background min-h-screen pt-20">
+        <div className="bg-slate-950 min-h-screen">
             <PricingSection locale={locale} />
         </div>
     );

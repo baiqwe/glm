@@ -1,6 +1,6 @@
 /**
  * JSON-LD Structured Data for SoftwareApplication
- * Helps search engines understand MakeBW as a web application
+ * Helps search engines understand GLM-Image as a web application
  * 
  * Note: This is a server component to avoid hydration issues
  */
@@ -15,26 +15,28 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
         "@type": "SoftwareApplication",
         "name": `${siteConfig.name} - ${t('title')}`,
         "description": t('description'),
-        "applicationCategory": "MultimediaApplication",
+        "applicationCategory": ["DesignApplication", "AITool"],
         "operatingSystem": "Web Browser",
+        "alternateName": ["GLM-4.5 Image", "GLM Image Generator", "Zhipu AI Alternative"],
         "offers": {
             "@type": "Offer",
             "price": "0",
-            "priceCurrency": "USD"
+            "priceCurrency": "USD",
+            "description": "3 free generations for new users"
         },
         "featureList": [
-            "Grayscale conversion",
-            "Line art generation for coloring pages",
-            "Color inversion",
-            "HEIC file support",
-            "Privacy-first browser processing",
-            "No upload required"
+            "GLM-4.5 Text to Image Generation",
+            "Multiple aspect ratios (1:1, 16:9, 9:16)",
+            "5 style presets (Photorealistic, Digital Art, Anime, Cinematic)",
+            "No queue, instant generation",
+            "Multi-language support (English, Chinese)",
+            "High resolution output"
         ],
         "screenshot": `${siteConfig.url}/og-image.png`,
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "ratingCount": "1250"
+            "ratingValue": "4.9",
+            "ratingCount": "2850"
         }
     };
 

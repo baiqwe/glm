@@ -3,14 +3,14 @@
 
 export const siteConfig = {
   // === 品牌标识 ===
-  name: "MakeBW",                           // 网站名称
-  domain: "makebw.com",                     // 主域名（不含 https://）
-  url: "https://makebw.com",                // 完整 URL
-  author: "Bai",                            // 作者
-  supportEmail: "support@makebw.com",       // 联系邮箱
+  name: "GLM-Image",                        // 网站名称
+  domain: "glmimageonline.com",             // 主域名
+  url: "https://glmimageonline.com",        // 完整 URL
+  author: "GLM-Image Team",                 // 作者
+  supportEmail: "support@glmimageonline.com", // 联系邮箱
 
   // === 分析追踪 ===
-  gaId: "G-YT7DTCMVZ1",                     // Google Analytics ID
+  gaId: "G-PLACEHOLDER",                    // Google Analytics ID - 待用户提供
 
   // === 国际化配置 ===
   i18n: {
@@ -20,8 +20,8 @@ export const siteConfig = {
   },
 
   // === PWA 主题 ===
-  themeColor: "#000000",
-  backgroundColor: "#ffffff",
+  themeColor: "#6366f1",                    // Indigo 主题色
+  backgroundColor: "#0f172a",               // 深色背景
 };
 
 // 类型导出

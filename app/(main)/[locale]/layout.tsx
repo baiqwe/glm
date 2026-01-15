@@ -10,10 +10,11 @@ import { Geist } from "next/font/google";
 import { SoftwareApplicationSchema } from "@/components/json-ld-schema";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { createClient } from "@/utils/supabase/server";
+import { PromotionBanner } from "@/components/feature/promotion-banner";
+import { siteConfig } from "@/config/site";
 import "../../globals.css";
 
-// ✅ 必须添加这一行，让前端页面兼容 Cloudflare Edge
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 const geistSans = Geist({
     display: "swap",
@@ -26,48 +27,43 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     const messages = await getMessages({ locale }) as any;
 
     return {
-        // ✅ SEO 核心: metadataBase 用于生成绝对 URL
-        metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://makebw.com'),
+        metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || siteConfig.url),
 
         title: {
             default: messages.metadata.title,
-            template: '%s | MakeBW.com'
+            template: `%s | ${siteConfig.name}`
         },
         description: messages.metadata.description,
         keywords: messages.metadata.keywords,
 
-        // ✅ 作者和站点信息
-        authors: [{ name: 'Bai' }],
-        creator: 'Bai',
-        publisher: 'MakeBW.com',
+        authors: [{ name: siteConfig.author }],
+        creator: siteConfig.author,
+        publisher: siteConfig.name,
 
-        // ✅ Open Graph - 添加图片
         openGraph: {
             title: messages.metadata.title,
             description: messages.metadata.description,
             type: "website",
             locale: locale === 'zh' ? 'zh_CN' : 'en_US',
-            url: `https://makebw.com/${locale}`,
-            siteName: 'MakeBW.com',
+            url: `${siteConfig.url}/${locale}`,
+            siteName: siteConfig.name,
             images: [
                 {
-                    url: 'https://makebw.com/web-app-manifest-512x512.png',
-                    width: 512,
-                    height: 512,
-                    alt: 'MakeBW - Free Image to Black and White Converter',
+                    url: `${siteConfig.url}/og-image.png`,
+                    width: 1200,
+                    height: 630,
+                    alt: `${siteConfig.name} - AI Image Generator`,
                 },
             ],
         },
 
-        // ✅ Twitter Card - 添加图片
         twitter: {
             card: "summary_large_image",
             title: messages.metadata.title,
             description: messages.metadata.description,
-            images: ['https://makebw.com/web-app-manifest-512x512.png'],
+            images: [`${siteConfig.url}/og-image.png`],
         },
 
-        // ✅ Canonical & 多语言 alternates
         alternates: {
             canonical: `/${locale}`,
             languages: {
@@ -77,7 +73,6 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
             },
         },
 
-        // ✅ Robots 配置 - 允许索引
         robots: {
             index: true,
             follow: true,
@@ -90,7 +85,6 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
             },
         },
 
-        // ✅ Favicon 和图标配置 - 匹配实际文件
         icons: {
             icon: [
                 { url: '/favicon.ico', sizes: 'any' },
@@ -100,17 +94,11 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
             apple: [
                 { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
             ],
-            other: [
-                { rel: 'mask-icon', url: '/favicon.svg', color: '#000000' },
-            ],
         },
 
-        // ✅ Web App Manifest
         manifest: '/site.webmanifest',
-
-        // ✅ 其他 SEO 相关
         category: 'technology',
-        classification: 'Image Processing Tool',
+        classification: 'AI Image Generation Tool',
     };
 }
 
@@ -122,37 +110,35 @@ export default async function LocaleLayout(props: {
     const { locale } = params;
     const { children } = props;
 
-    // Validate locale
     if (!routing.locales.includes(locale as any)) {
         notFound();
     }
 
     const messages = await getMessages({ locale });
 
-    // 从 Supabase 获取用户认证状态（添加错误处理）
     let user = null;
     try {
         const supabase = await createClient();
         const { data } = await supabase.auth.getUser();
         user = data?.user || null;
     } catch (error) {
-        // Supabase 调用失败时，用户状态设为 null，页面仍可正常渲染
         console.error('Failed to get user:', error);
     }
 
     return (
-        <html lang={locale} className={geistSans.className} suppressHydrationWarning>
-            <body className="bg-background text-foreground antialiased" suppressHydrationWarning>
+        <html lang={locale} className={`${geistSans.className} dark`} suppressHydrationWarning>
+            <body className="bg-slate-950 text-slate-50 antialiased" suppressHydrationWarning>
                 <GoogleAnalytics />
                 <SoftwareApplicationSchema locale={locale} />
                 <NextIntlClientProvider messages={messages} locale={locale}>
                     <ThemeProvider
                         attribute="class"
-                        defaultTheme="system"
-                        enableSystem
+                        defaultTheme="dark"
+                        forcedTheme="dark"
                         disableTransitionOnChange
                     >
                         <div className="relative min-h-screen flex flex-col">
+                            <PromotionBanner />
                             <Header user={user} />
                             <main className="flex-1">{children}</main>
                             <Footer />

@@ -1,12 +1,13 @@
 {
+  "name": "glm-image",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "npm run translate && next build",
-    "pages:build": "npx @cloudflare/next-on-pages",
     "postbuild": "next-sitemap",
     "start": "next start",
-    "translate": "tsx scripts/translate.ts"
+    "translate": "tsx scripts/translate.ts",
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",

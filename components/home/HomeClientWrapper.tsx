@@ -1,23 +1,25 @@
 'use client';
 
 import { useState, type ReactNode } from 'react';
-import HomeInteractive from './HomeInteractive';
+import HomeHeroGenerator from './HomeHeroGenerator';
 
 interface HomeClientWrapperProps {
     staticContent: ReactNode;
-    user: any; // Pass user to interactive component
+    user: any;
 }
 
 export default function HomeClientWrapper({ staticContent, user }: HomeClientWrapperProps) {
     const [showStaticContent, setShowStaticContent] = useState(true);
 
     return (
-        <div className="min-h-screen bg-background">
-            {/* Hero + Interactive Upload Section */}
-            <HomeInteractive onShowStaticContent={setShowStaticContent} user={user} />
+        <div className="min-h-screen">
+            {/* Hero + AI Generator */}
+            <HomeHeroGenerator onShowStaticContent={setShowStaticContent} user={user} />
 
-            {/* Static Content - only shown when no image is uploaded */}
-            {showStaticContent && staticContent}
+            {/* SEO Static Content - always visible below the generator */}
+            <div className="bg-background">
+                {staticContent}
+            </div>
         </div>
     );
 }

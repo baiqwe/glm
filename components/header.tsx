@@ -3,12 +3,11 @@
 import { signOutAction } from "@/app/actions";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { ThemeSwitcher } from "./theme-switcher";
 import { Logo } from "./logo";
 import { usePathname } from "next/navigation";
 import { MobileNav } from "./mobile-nav";
 import { useTranslations } from "next-intl";
-import { useRouter, usePathname as useIntlPathname } from "@/i18n/routing";
+import { Sparkles } from "lucide-react";
 
 interface HeaderProps {
   user: any;
@@ -21,106 +20,99 @@ interface NavItem {
 
 export default function Header({ user }: HeaderProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const t = useTranslations('nav');
-  const isDashboard = pathname?.startsWith("/dashboard");
 
-  // 更可靠地检测当前 locale
   const pathParts = pathname?.split('/') || [];
   const currentLocale = (pathParts[1] === 'en' || pathParts[1] === 'zh') ? pathParts[1] : 'en';
   const localePrefix = `/${currentLocale}`;
 
-  // 获取不带 locale 前缀的路径（用于语言切换）
   const getPathWithoutLocale = () => {
     if (!pathname) return '/';
-    // 如果路径以 /en 或 /zh 开头，移除它
     const withoutLocale = pathname.replace(/^\/(en|zh)/, '');
     return withoutLocale || '/';
   };
 
   const pathWithoutLocale = getPathWithoutLocale();
 
-  // Main navigation items
   const mainNavItems: NavItem[] = [
     { label: t('home'), href: localePrefix },
-    { label: "✨ AI Studio", href: `${localePrefix}/create` },
     { label: t('pricing'), href: `${localePrefix}/pricing` },
-    { label: currentLocale === 'zh' ? '填色画' : 'Coloring Pages', href: `${localePrefix}/photo-to-coloring-page` },
     { label: t('about'), href: `${localePrefix}/about` },
   ];
 
-  // Dashboard items
-  const dashboardItems: NavItem[] = [];
-  const navItems = isDashboard ? dashboardItems : mainNavItems;
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/95 backdrop-blur-lg">
       <div className="container flex h-16 items-center justify-between px-4">
-        <div className="flex items-center">
+        {/* Logo */}
+        <div className="flex items-center gap-8">
           <Logo />
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6">
+            {mainNavItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-slate-400 transition-colors hover:text-white"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
 
-        {/* Centered Navigation */}
-        <nav className="hidden md:flex items-center gap-8 absolute left-1/2 transform -translate-x-1/2">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-lg font-semibold text-muted-foreground transition-colors hover:text-primary"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          {/* Language Switcher - 修复后的版本 */}
-          <div className="hidden md:flex items-center gap-1 mr-2">
+        {/* Right side */}
+        <div className="flex items-center gap-3">
+          {/* Language Switcher */}
+          <div className="hidden md:flex items-center gap-1 bg-slate-800/50 rounded-lg p-1">
             <Link
               href={`/en${pathWithoutLocale}`}
-              className={`px-2 py-1 rounded text-sm transition-colors ${currentLocale === 'en'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+              className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'en'
+                ? 'bg-indigo-600 text-white'
+                : 'text-slate-400 hover:text-white'
                 }`}
             >
               EN
             </Link>
             <Link
               href={`/zh${pathWithoutLocale}`}
-              className={`px-2 py-1 rounded text-sm transition-colors ${currentLocale === 'zh'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+              className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${currentLocale === 'zh'
+                ? 'bg-indigo-600 text-white'
+                : 'text-slate-400 hover:text-white'
                 }`}
             >
               中文
             </Link>
           </div>
 
-          <ThemeSwitcher />
           {user ? (
             <div className="hidden md:flex items-center gap-2">
-              <Button asChild size="sm" variant="ghost">
+              <Button asChild size="sm" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800">
                 <Link href={`${localePrefix}/dashboard`}>
                   {currentLocale === 'zh' ? '控制台' : 'Dashboard'}
                 </Link>
               </Button>
               <form action={signOutAction}>
-                <Button type="submit" variant="outline" size="sm">
+                <Button type="submit" variant="outline" size="sm" className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
                   {t('sign_out')}
                 </Button>
               </form>
             </div>
           ) : (
             <div className="hidden md:flex gap-2">
-              <Button asChild size="sm" variant="outline">
+              <Button asChild size="sm" variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800">
                 <Link href={`${localePrefix}/sign-in`}>{t('sign_in')}</Link>
               </Button>
-              <Button asChild size="sm">
-                <Link href={`${localePrefix}/sign-up`}>{t('sign_up')}</Link>
+              <Button asChild size="sm" className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white border-0">
+                <Link href={`${localePrefix}/sign-up`} className="flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  {t('sign_up')}
+                </Link>
               </Button>
             </div>
           )}
-          <MobileNav items={navItems} user={user} isDashboard={isDashboard} currentLocale={currentLocale} />
+
+          <MobileNav items={mainNavItems} user={user} isDashboard={false} currentLocale={currentLocale} />
         </div>
       </div>
     </header>
