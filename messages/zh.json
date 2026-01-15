@@ -214,15 +214,45 @@
             "q2": "GLM-Image 免费吗？",
             "a2": "是的！每位新用户获得 3 次免费生成。之后，实惠的积分包从 $4.99 起可生成 50 张图像。",
             "q3": "生成需要多长时间？",
-            "a3": "大多数图像在 5-15 秒内生成完成，取决于复杂程度和服务器负载。无需排队等待。",
-            "q4": "我可以将生成的图像用于商业用途吗？",
-            "a4": "可以！使用 GLM-Image 生成的所有图像都可以用于商业用途。建议添加您自己的独特元素以建立品牌形象。"
+            "a3": "大多数图像在 5-15 秒内生成完成，取决于复杂程度和服务器负载。无需排队等待。"
         },
         "cta": {
             "title": "开始使用 GLM-4.5 创作",
-            "subtitle": "3 次免费生成。无需信用卡。",
+            "subtitle": "免费试用 3 次，无需信用卡。",
             "button_start": "开始生成",
-            "button_coloring": "试用文生图"
+            "button_coloring": "体验文生图"
+        },
+        "seo": {
+            "comparison_title": "GLM-Image 与 Midjourney v6 对比：为何选择我们？",
+            "comparison_intro": "在众多 AI 图像生成器中，GLM-4.5/4.6 相比 Midjourney v6 等热门产品具有独特优势：",
+            "compare_chinese": "原生中文理解",
+            "compare_chinese_desc": "GLM 模型使用海量中文数据训练，深入理解中国文化、成语典故和传统概念，这是西方模型难以比拟的。",
+            "compare_speed": "极速生成",
+            "compare_speed_desc": "优化后的生成管线仅需 5-15 秒即可出图，而其他平台通常需要 30-60 秒。",
+            "compare_price": "更低成本",
+            "compare_price_desc": "专业版套餐单张成本低至 $0.05，远低于 Midjourney $10/月的起步门槛。",
+            "compare_queue": "无排队系统",
+            "compare_queue_desc": "告别 Discord 的排队和复杂指令。直接输入描述，立即生成。",
+            "video_title": "如何使用 GLM 图生视频（2026 即将上线）",
+            "video_intro": "即将推出的图生视频功能将把您的静态图片转化为动态视频。功能预览：",
+            "video_step_1": "第一步：生成图片",
+            "video_step_1_desc": "首先使用 GLM-4.5 文生图功能创建一张高质量的静态图片。",
+            "video_step_2": "第二步：选择动画风格",
+            "video_step_2_desc": "选择动画、电影感或微动效果等预设，定义视频的运动风格。",
+            "video_step_3": "第三步：设置时长",
+            "video_step_3_desc": "选择 3 到 10 秒的视频时长。更长的视频将消耗更多积分。",
+            "video_step_4": "第四步：生成与下载",
+            "video_step_4_desc": "点击生成，等待片刻即可下载 MP4 格式视频，随时分享到社交媒体。",
+            "tech_title": "深入了解 GLM-4.6 架构",
+            "tech_intro": "GLM-4.6 代表了多模态 AI 的下一次进化，建立在 GLM-4.5 的坚实基础之上：",
+            "tech_feature_1": "长文本上下文理解",
+            "tech_feature_1_desc": "GLM-4.6 处理具有超长上下文窗口的提示词，能够理解包含多个元素和复杂关系的场景描述。",
+            "tech_feature_2": "中文语义增强",
+            "tech_feature_2_desc": "通过增强的中文文化和语言训练数据，GLM 擅长诠释传统概念、历史典故和诗意表达。",
+            "tech_feature_3": "MCP 协议支持",
+            "tech_feature_3_desc": "模型控制协议（MCP）集成实现了对生成参数、风格一致性和迭代优化的精确控制。",
+            "tech_feature_4": "视视-语言紧密耦合",
+            "tech_feature_4_desc": "视觉和语言模型之间的紧密集成确保生成的图像准确反映提示词的语义意图。"
         }
     },
     "create": {

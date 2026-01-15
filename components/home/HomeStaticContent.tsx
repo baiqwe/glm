@@ -21,6 +21,9 @@ export default async function HomeStaticContent({ locale }: HomeStaticContentPro
             {/* Features Section */}
             <FeaturesSection t={tFeatures} />
 
+            {/* SEO Content Section */}
+            <SEOContentSection t={tHome} />
+
             {/* FAQ Section */}
             <FAQSection t={tHome} />
 
@@ -259,6 +262,99 @@ function CTASection({ t, locale }: { t: any; locale: string }) {
                             </Link>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+function SEOContentSection({ t }: { t: any }) {
+    return (
+        <section className="py-20 bg-slate-900 border-t border-slate-800">
+            <div className="container px-4 md:px-6 max-w-4xl mx-auto prose prose-invert prose-lg">
+                {/* Comparison Table */}
+                <h2 className="text-3xl font-bold text-white mb-8">{t('seo.comparison_title')}</h2>
+                <p className="text-slate-400 mb-8">{t('seo.comparison_intro')}</p>
+
+                <div className="not-prose grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                        <div className="text-2xl mb-2">🇨🇳</div>
+                        <h3 className="font-bold text-white mb-2">{t('seo.compare_chinese')}</h3>
+                        <p className="text-sm text-slate-400">{t('seo.compare_chinese_desc')}</p>
+                    </div>
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                        <div className="text-2xl mb-2">⚡️</div>
+                        <h3 className="font-bold text-white mb-2">{t('seo.compare_speed')}</h3>
+                        <p className="text-sm text-slate-400">{t('seo.compare_speed_desc')}</p>
+                    </div>
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                        <div className="text-2xl mb-2">💰</div>
+                        <h3 className="font-bold text-white mb-2">{t('seo.compare_price')}</h3>
+                        <p className="text-sm text-slate-400">{t('seo.compare_price_desc')}</p>
+                    </div>
+                    <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                        <div className="text-2xl mb-2">🚀</div>
+                        <h3 className="font-bold text-white mb-2">{t('seo.compare_queue')}</h3>
+                        <p className="text-sm text-slate-400">{t('seo.compare_queue_desc')}</p>
+                    </div>
+                </div>
+
+                {/* Video Tutorial (Schema-ready) */}
+                <h2 className="text-3xl font-bold text-white mt-16 mb-6">{t('seo.video_title')}</h2>
+                <p className="text-slate-400 mb-8">{t('seo.video_intro')}</p>
+                <div className="space-y-6 mb-16">
+                    <div className="flex gap-4">
+                        <div className="flex-none w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">1</div>
+                        <div>
+                            <h3 className="text-xl font-semibold text-white mb-1">{t('seo.video_step_1')}</h3>
+                            <p className="text-slate-400">{t('seo.video_step_1_desc')}</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-4">
+                        <div className="flex-none w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">2</div>
+                        <div>
+                            <h3 className="text-xl font-semibold text-white mb-1">{t('seo.video_step_2')}</h3>
+                            <p className="text-slate-400">{t('seo.video_step_2_desc')}</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-4">
+                        <div className="flex-none w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">3</div>
+                        <div>
+                            <h3 className="text-xl font-semibold text-white mb-1">{t('seo.video_step_3')}</h3>
+                            <p className="text-slate-400">{t('seo.video_step_3_desc')}</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-4">
+                        <div className="flex-none w-8 h-8 rounded-full bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">4</div>
+                        <div>
+                            <h3 className="text-xl font-semibold text-white mb-1">{t('seo.video_step_4')}</h3>
+                            <p className="text-slate-400">{t('seo.video_step_4_desc')}</p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Tech Specs */}
+                <div className="bg-slate-800/30 p-8 rounded-2xl">
+                    <h2 className="text-2xl font-bold text-white mb-6">{t('seo.tech_title')}</h2>
+                    <p className="text-slate-300 mb-6">{t('seo.tech_intro')}</p>
+                    <ul className="space-y-4 list-none pl-0">
+                        <li className="flex gap-3">
+                            <span className="text-indigo-400">❖</span>
+                            <span><strong className="text-white">{t('seo.tech_feature_1')}:</strong> {t('seo.tech_feature_1_desc')}</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-indigo-400">❖</span>
+                            <span><strong className="text-white">{t('seo.tech_feature_2')}:</strong> {t('seo.tech_feature_2_desc')}</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-indigo-400">❖</span>
+                            <span><strong className="text-white">{t('seo.tech_feature_3')}:</strong> {t('seo.tech_feature_3_desc')}</span>
+                        </li>
+                        <li className="flex gap-3">
+                            <span className="text-indigo-400">❖</span>
+                            <span><strong className="text-white">{t('seo.tech_feature_4')}:</strong> {t('seo.tech_feature_4_desc')}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>
