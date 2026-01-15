@@ -5,7 +5,7 @@ import { BreadcrumbSchema, FAQSchema, HowToSchema } from '@/components/breadcrum
 import { SoftwareApplicationSchema } from '@/components/json-ld-schema';
 
 // ✅ Cloudflare Edge Runtime
-export const runtime = 'edge';
+
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;

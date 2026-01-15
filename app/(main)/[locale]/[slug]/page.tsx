@@ -5,7 +5,7 @@ import { CheckCircle, FileImage, Zap, Shield } from 'lucide-react';
 import { BreadcrumbSchema, FAQSchema, HowToSchema } from '@/components/breadcrumb-schema';
 
 // ✅ Cloudflare Edge Runtime
-export const runtime = 'edge';
+
 
 const supportedFormats = ['jpg', 'png', 'webp', 'heic'] as const;
 type SupportedFormat = typeof supportedFormats[number];

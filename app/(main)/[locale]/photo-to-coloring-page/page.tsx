@@ -4,7 +4,7 @@ import { Palette, Users, GraduationCap, CheckCircle } from 'lucide-react';
 import { BreadcrumbSchema, FAQSchema, HowToSchema } from '@/components/breadcrumb-schema';
 
 // ✅ Cloudflare Edge Runtime
-export const runtime = 'edge';
+
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;

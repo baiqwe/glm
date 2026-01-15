@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 
-export const runtime = 'edge';
+
 
 // 硬编码 locales 避免导入问题
 const LOCALES = ["en", "zh"];

@@ -6,7 +6,7 @@ import { ArrowLeft, Shield, Eye, Lock, CheckCircle, XCircle, AlertCircle } from 
 import { BreadcrumbSchema } from "@/components/breadcrumb-schema";
 
 // ✅ Cloudflare Edge Runtime
-export const runtime = 'edge';
+
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;

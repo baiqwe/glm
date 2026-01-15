@@ -1,5 +1,5 @@
 import { headers } from "next/headers";
-export const runtime = 'edge';
+
 import { NextResponse } from "next/server";
 import { verifyCreemWebhookSignature } from "@/utils/creem/verify-signature";
 import { CreemWebhookEvent } from "@/types/creem";

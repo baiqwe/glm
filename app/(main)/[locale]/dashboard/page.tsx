@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { SubscriptionStatusCard } from "@/components/dashboard/subscription-status-card";
 import { CreditsBalanceCard } from "@/components/dashboard/credits-balance-card";
 
-export const runtime = 'edge';
+
 
 export default async function DashboardPage(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;
