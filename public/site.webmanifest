@@ -1,7 +1,7 @@
 {
-  "name": "MakeBW - Free Image to Black and White Converter",
-  "short_name": "MakeBW",
-  "description": "Convert images to black and white instantly. Free, private, browser-based image processing.",
+  "name": "GLM-Image - AI Image Generator",
+  "short_name": "GLM-Image",
+  "description": "Create stunning 3D, anime, and cinematic images instantly with GLM-4 AI.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,11 +16,10 @@
       "purpose": "any maskable"
     }
   ],
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
+  "theme_color": "#020617",
+  "background_color": "#020617",
   "display": "standalone",
   "start_url": "/",
   "scope": "/",
   "orientation": "portrait-primary"
 }
-
