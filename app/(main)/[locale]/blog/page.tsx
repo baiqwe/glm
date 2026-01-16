@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Calendar, Clock, Sparkles } from 'lucide-react';
 import { siteConfig } from '@/config/site';
+import { blogPosts } from '@/config/blog-posts';
 
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;
@@ -21,35 +22,17 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
     };
 }
 
-// Mock blog posts - replace with CMS data
+// 从配置获取博客列表
 function getPosts(locale: string) {
     const isZh = locale === 'zh';
-    return [
-        {
-            slug: 'how-to-use-glm-4',
-            title: isZh
-                ? 'GLM-4.5 图像生成完全指南：从入门到精通'
-                : 'How to Master GLM-4.5 for Image Generation: A Complete Guide',
-            excerpt: isZh
-                ? '学习如何使用 GLM-4.5 创建惊艳的视觉效果，包含详细的提示词技巧和与 Midjourney 的对比分析。'
-                : 'Learn the secrets of prompting with GLM-4.5 to create stunning visuals. Includes detailed tips and comparison with Midjourney.',
-            date: '2026-01-15',
-            readTime: isZh ? '5 分钟' : '5 min',
-            tags: isZh ? ['教程', 'GLM-4.5'] : ['Tutorial', 'GLM-4.5'],
-        },
-        {
-            slug: 'top-10-prompts',
-            title: isZh
-                ? 'GLM-4.5 角色设计十大提示词技巧'
-                : 'Top 10 Prompts for GLM-4.5 Character Design',
-            excerpt: isZh
-                ? '掌握这些提示词技巧，轻松创建独特的角色设计。从卡通风格到写实风格，应有尽有。'
-                : 'Master these prompting techniques to easily create unique character designs. From cartoon to realistic styles.',
-            date: '2026-01-12',
-            readTime: isZh ? '3 分钟' : '3 min',
-            tags: isZh ? ['技巧', '角色设计'] : ['Tips', 'Character Design'],
-        },
-    ];
+    return blogPosts.map(post => ({
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.description,
+        date: post.publishDate,
+        readTime: isZh ? '5 分钟' : '5 min',
+        tags: post.keywords.slice(0, 2).map(k => k.charAt(0).toUpperCase() + k.slice(1)),
+    }));
 }
 
 export default async function BlogPage(props: { params: Promise<{ locale: string }> }) {
