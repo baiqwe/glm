@@ -54,6 +54,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
     const [error, setError] = useState<string | null>(null);
     const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+    const [enhancedPrompt, setEnhancedPrompt] = useState<string | null>(null);
 
     // 客户端用户状态 - 优先使用客户端实时获取的用户状态
     const [currentUser, setCurrentUser] = useState<any>(user);
@@ -153,6 +154,10 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
             const data = await response.json();
             if (data.url) {
                 setResultImage(data.url);
+                // 保存 AI 优化后的提示词
+                if (data.enhancedPrompt) {
+                    setEnhancedPrompt(data.enhancedPrompt);
+                }
                 await refetchCredits();
                 const confetti = (await import('canvas-confetti')).default;
                 confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 } });
@@ -340,6 +345,20 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                     className="object-contain"
                                                 />
                                             </div>
+
+                                            {/* AI 增强提示词展示 */}
+                                            {enhancedPrompt && (
+                                                <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-lg p-3 border border-indigo-500/20">
+                                                    <div className="flex items-center gap-1.5 text-xs text-indigo-400 mb-1.5">
+                                                        <Sparkles className="w-3 h-3" />
+                                                        {locale === 'zh' ? 'AI 优化后的提示词' : 'AI-Enhanced Prompt'}
+                                                    </div>
+                                                    <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
+                                                        {enhancedPrompt}
+                                                    </p>
+                                                </div>
+                                            )}
+
                                             <div className="flex gap-2 justify-center">
                                                 <Button onClick={handleDownload} size="sm" className="bg-indigo-600 hover:bg-indigo-700">
                                                     <Download className="w-4 h-4 mr-2" />
@@ -348,7 +367,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    onClick={() => { setResultImage(null); setPrompt(""); }}
+                                                    onClick={() => { setResultImage(null); setPrompt(""); setEnhancedPrompt(null); }}
                                                     className="border-slate-600 text-slate-300 hover:bg-slate-800"
                                                 >
                                                     {locale === 'zh' ? '新建' : 'New'}
