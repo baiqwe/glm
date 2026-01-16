@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles, Wand2, Download, VideoIcon } from 'lucide-react';
+import { Loader2, Sparkles, Wand2, Download, VideoIcon, Dices } from 'lucide-react';
 import Image from 'next/image';
 import { QuickRefillModal } from '@/components/payment/quick-refill-modal';
 import { useToast } from '@/hooks/use-toast';
@@ -32,6 +32,38 @@ const ASPECT_RATIOS = [
     { id: "9:16", icon: "▯" },
 ];
 
+// 灵感画廊 - 高质量提示词示例
+const INSPIRATION_PROMPTS = [
+    {
+        id: "cyber-city",
+        prompt: "A breathtaking cyberpunk cityscape at night, neon lights reflecting on wet streets, flying cars, massive holographic advertisements, rain falling, blade runner atmosphere, hyper detailed, 8K",
+        promptZh: "令人惊叹的赛博朋克城市夜景，霓虹灯在潮湿街道上的倒影，飞行汽车，巨大的全息广告，细雨绵绵，银翼杀手氛围",
+        label: "🌃 Cyberpunk",
+        labelZh: "🌃 赛博朋克"
+    },
+    {
+        id: "anime-girl",
+        prompt: "A beautiful anime girl with long silver hair, wearing a flowing white dress, standing in a field of glowing cherry blossoms at sunset, makoto shinkai style, ethereal lighting, highly detailed",
+        promptZh: "美丽的银发少女，身穿飘逸的白色长裙，站在发光的樱花花海中，夕阳西下，新海诚风格，空灵光效",
+        label: "🌸 Anime",
+        labelZh: "🌸 动漫少女"
+    },
+    {
+        id: "photo-portrait",
+        prompt: "Professional portrait photography of a confident woman CEO, natural lighting from large window, shallow depth of field, wearing elegant business attire, modern office background, shot on Canon EOS R5, 85mm lens",
+        promptZh: "专业人像摄影，自信的女性CEO，大窗户自然光，浅景深，优雅商务装，现代办公室背景，佳能相机质感",
+        label: "📸 Portrait",
+        labelZh: "📸 人像写真"
+    },
+    {
+        id: "fantasy-dragon",
+        prompt: "An epic fantasy scene of a majestic golden dragon flying over ancient mountains at sunrise, dramatic clouds, magical atmosphere, cinematic composition, highly detailed scales, volumetric lighting",
+        promptZh: "史诗奇幻场景，雄伟的金龙在日出时分飞越古老山脉，戏剧性云层，魔幻氛围，电影级构图，精细鳞片",
+        label: "🐉 Fantasy",
+        labelZh: "🐉 奇幻巨龙"
+    }
+];
+
 interface HomeHeroGeneratorProps {
     onShowStaticContent: (show: boolean) => void;
     user?: any;
@@ -55,6 +87,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
     const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
     const [enhancedPrompt, setEnhancedPrompt] = useState<string | null>(null);
+    const [enableEnhance, setEnableEnhance] = useState(true);  // AI 增强开关，默认开启
 
     // 客户端用户状态 - 优先使用客户端实时获取的用户状态
     const [currentUser, setCurrentUser] = useState<any>(user);
@@ -133,6 +166,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                     prompt: prompt.trim(),
                     aspect_ratio: selectedRatio,
                     style: selectedStyle,
+                    enhance: enableEnhance,  // 传递 AI 增强开关状态
                 }),
             });
 
@@ -238,6 +272,46 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                         className="min-h-[120px] bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500 resize-none focus:border-indigo-500 focus:ring-indigo-500/20"
                                         maxLength={2000}
                                     />
+
+                                    {/* 灵感画廊 + AI 增强开关 */}
+                                    <div className="flex items-center justify-between mt-3 gap-2">
+                                        {/* 灵感快捷按钮 */}
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {INSPIRATION_PROMPTS.map((item) => (
+                                                <button
+                                                    key={item.id}
+                                                    onClick={() => setPrompt(locale === 'zh' ? item.promptZh : item.prompt)}
+                                                    className="px-2 py-1 text-xs rounded-md bg-slate-800 text-slate-400 hover:bg-indigo-500/20 hover:text-indigo-300 transition-all border border-slate-700 hover:border-indigo-500/30"
+                                                >
+                                                    {locale === 'zh' ? item.labelZh : item.label}
+                                                </button>
+                                            ))}
+                                            <button
+                                                onClick={() => {
+                                                    const random = INSPIRATION_PROMPTS[Math.floor(Math.random() * INSPIRATION_PROMPTS.length)];
+                                                    setPrompt(locale === 'zh' ? random.promptZh : random.prompt);
+                                                }}
+                                                className="px-2 py-1 text-xs rounded-md bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 transition-all border border-purple-500/30"
+                                                title={locale === 'zh' ? '随机灵感' : 'Random inspiration'}
+                                            >
+                                                <Dices className="w-3.5 h-3.5" />
+                                            </button>
+                                        </div>
+
+                                        {/* AI 增强开关 */}
+                                        <button
+                                            onClick={() => setEnableEnhance(!enableEnhance)}
+                                            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md transition-all border ${enableEnhance
+                                                ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
+                                                : 'bg-slate-800 text-slate-500 border-slate-700'
+                                                }`}
+                                            title={locale === 'zh' ? 'AI 自动优化提示词' : 'AI auto-enhance prompt'}
+                                        >
+                                            <Sparkles className="w-3 h-3" />
+                                            {locale === 'zh' ? 'AI增强' : 'Enhance'}
+                                            <span className={`w-1.5 h-1.5 rounded-full ${enableEnhance ? 'bg-green-400' : 'bg-slate-600'}`} />
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Aspect Ratio */}
@@ -295,24 +369,29 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                 )}
 
                                 {/* Generate Button */}
-                                <Button
-                                    size="lg"
-                                    className="w-full h-12 text-base font-medium bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg shadow-indigo-500/25"
-                                    onClick={() => handleGenerate()}
-                                    disabled={isGenerating}
-                                >
-                                    {isGenerating ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                            {locale === 'zh' ? '生成中...' : 'Generating...'}
-                                        </>
-                                    ) : (
-                                        <>
-                                            <Wand2 className="mr-2 h-5 w-5" />
-                                            {locale === 'zh' ? `生成（10 积分）` : `Generate (10 Credits)`}
-                                        </>
-                                    )}
-                                </Button>
+                                <div className="space-y-2">
+                                    <Button
+                                        size="lg"
+                                        className="w-full h-12 text-base font-medium bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white shadow-lg shadow-indigo-500/25"
+                                        onClick={() => handleGenerate()}
+                                        disabled={isGenerating}
+                                    >
+                                        {isGenerating ? (
+                                            <>
+                                                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                                                {locale === 'zh' ? 'AI 正在创作...' : 'AI is creating...'}
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Wand2 className="mr-2 h-5 w-5" />
+                                                {locale === 'zh' ? '生成图片' : 'Generate'}
+                                            </>
+                                        )}
+                                    </Button>
+                                    <p className="text-center text-xs text-slate-500">
+                                        {locale === 'zh' ? '每次生成消耗 10 积分' : '10 credits per generation'}
+                                    </p>
+                                </div>
 
                                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
@@ -343,6 +422,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                     alt="Generated by GLM-4"
                                                     fill
                                                     className="object-contain"
+                                                    unoptimized  // 跳过 Next.js 图片优化，直接加载外部 URL
                                                 />
                                             </div>
 
