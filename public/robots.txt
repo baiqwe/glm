@@ -6,10 +6,10 @@ Disallow: /_next/
 Disallow: /*/sign-in
 Disallow: /*/sign-up
 Disallow: /*/forgot-password
-Disallow: /*/create
+Disallow: /*/dashboard
 
 # Host
-Host: https://makebw.com
+Host: https://glmimageonline.com
 
 # Sitemaps
-Sitemap: https://makebw.com/sitemap.xml
+Sitemap: https://glmimageonline.com/sitemap.xml

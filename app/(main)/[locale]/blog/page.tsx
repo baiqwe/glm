@@ -6,6 +6,9 @@ import { ArrowRight, Calendar, Clock, Sparkles } from 'lucide-react';
 import { siteConfig } from '@/config/site';
 import { blogPosts } from '@/config/blog-posts';
 
+// 静态页面 - 启用 CDN 缓存
+export const dynamic = 'force-static';
+
 export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
     const params = await props.params;
     const { locale } = params;

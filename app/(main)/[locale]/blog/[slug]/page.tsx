@@ -8,6 +8,9 @@ import { ChevronRight, Calendar, User, Clock, ArrowRight, Sparkles } from 'lucid
 import { siteConfig } from '@/config/site';
 import { blogPosts, BlogPost } from '@/config/blog-posts';
 
+// 静态页面 - 使用 generateStaticParams 预生成所有博客文章
+export const dynamic = 'force-static';
+
 // 从配置获取博客文章
 function getPost(slug: string, locale: string): (BlogPost & {
     author: string;
