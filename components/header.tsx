@@ -43,6 +43,7 @@ export default function Header({ user: initialUser }: HeaderProps) {
   const mainNavItems: NavItem[] = [
     { label: t('home'), href: localePrefix },
     { label: t('pricing'), href: `${localePrefix}/pricing` },
+    { label: currentLocale === 'zh' ? '博客' : 'Blog', href: `${localePrefix}/blog` },
     { label: t('about'), href: `${localePrefix}/about` },
   ];
 

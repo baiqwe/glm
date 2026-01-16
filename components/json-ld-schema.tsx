@@ -32,12 +32,8 @@ export async function SoftwareApplicationSchema({ locale }: { locale: string }) 
             "Multi-language support (English, Chinese)",
             "High resolution output"
         ],
-        "screenshot": `${siteConfig.url}/og-image.png`,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "2850"
-        }
+        "screenshot": `${siteConfig.url}/og-image.png`
+        // Note: aggregateRating removed - only add when backed by real user review data
     };
 
     return (

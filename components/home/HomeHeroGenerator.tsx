@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { QuickRefillModal } from '@/components/payment/quick-refill-modal';
 import { useToast } from '@/hooks/use-toast';
 import { useCredits } from '@/hooks/use-credits';
+import { createClient } from '@/utils/supabase/client';
 
 // 风格选项
 const STYLES = [
@@ -54,6 +55,42 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
     const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
+    // 客户端用户状态 - 优先使用客户端实时获取的用户状态
+    const [currentUser, setCurrentUser] = useState<any>(user);
+
+    // 组件挂载时检查最新的登录状态，解决登录后页面不刷新导致 user prop 过期的问题
+    useEffect(() => {
+        const checkUser = async () => {
+            try {
+                const supabase = createClient();
+                const { data: { user: latestUser } } = await supabase.auth.getUser();
+                if (latestUser) {
+                    setCurrentUser(latestUser);
+                    setShowLoginPrompt(false); // 如果已登录，隐藏登录提示
+                }
+            } catch (error) {
+                console.error('Error checking user:', error);
+            }
+        };
+
+        checkUser();
+
+        // 监听 auth 状态变化
+        const supabase = createClient();
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+            if (event === 'SIGNED_IN' && session?.user) {
+                setCurrentUser(session.user);
+                setShowLoginPrompt(false);
+            } else if (event === 'SIGNED_OUT') {
+                setCurrentUser(null);
+            }
+        });
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+
     // 当有结果图时，隐藏静态内容
     useEffect(() => {
         onShowStaticContent(!resultImage);
@@ -71,7 +108,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
             return;
         }
 
-        if (!user) {
+        if (!currentUser) {
             saveStateForLater();
             setShowLoginPrompt(true);
             return;
@@ -240,7 +277,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                 </div>
 
                                 {/* Credits Info */}
-                                {user ? (
+                                {currentUser ? (
                                     <div className="flex items-center justify-between text-sm text-slate-400 bg-slate-800/50 px-4 py-3 rounded-lg">
                                         <span>{locale === 'zh' ? '剩余积分' : 'Credits'}</span>
                                         <span className="font-bold text-white">{credits?.remaining_credits ?? 0}</span>
@@ -274,7 +311,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
 
                                 {error && <p className="text-red-400 text-sm text-center">{error}</p>}
 
-                                {showLoginPrompt && !user && (
+                                {showLoginPrompt && !currentUser && (
                                     <div className="text-center p-4 bg-slate-800/50 rounded-lg border border-slate-700">
                                         <p className="text-slate-300 text-sm mb-3">
                                             {locale === 'zh' ? '登录后免费试用 3 次' : 'Sign in to get 3 free generations'}
