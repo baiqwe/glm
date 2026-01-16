@@ -11,6 +11,7 @@ import { SoftwareApplicationSchema } from "@/components/json-ld-schema";
 import { GoogleAnalytics } from "@/components/google-analytics";
 import { createClient } from "@/utils/supabase/server";
 import { PromotionBanner } from "@/components/feature/promotion-banner";
+import { BackgroundCollage } from "@/components/feature/background-collage";
 import { siteConfig } from "@/config/site";
 import "../../globals.css";
 
@@ -138,6 +139,9 @@ export default async function LocaleLayout(props: {
                         forcedTheme="dark"
                         disableTransitionOnChange
                     >
+                        {/* 模糊艺术拼贴墙背景 */}
+                        <BackgroundCollage />
+
                         <div className="relative min-h-screen flex flex-col">
                             <PromotionBanner />
                             <Header user={user} />
