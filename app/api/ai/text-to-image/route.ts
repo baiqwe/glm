@@ -38,6 +38,11 @@ const STYLE_HINTS: Record<string, string> = {
 /**
  * 提示词隐形增强
  * 使用 GLM-4-Flash 将用户的简单提示词扩写成大师级提示词
+ * 
+ * 优化点：
+ * 1. 保留用户原始语言（中文进中文出，英文进英文出）
+ * 2. 保护引号内的文字不被翻译（用于文字渲染）
+ * 3. 智谱 CogView 原生支持中文，中文提示词效果更好
  */
 async function enhancePrompt(
     userPrompt: string,
@@ -60,19 +65,25 @@ async function enhancePrompt(
                     content: `You are an expert AI art prompt engineer for image generation. Your job is to transform simple user prompts into detailed, vivid descriptions that will produce stunning images.
 
 Rules:
-1. Expand the prompt with artistic details: lighting, composition, atmosphere, textures, colors
-2. Add quality boosters: 8K, highly detailed, masterpiece, professional
-3. Keep the user's original intent and subject matter
-4. If the input is in Chinese, output in English but preserve cultural elements
-5. Output ONLY the improved prompt, no explanations or quotes
-6. Keep under 120 words
-7. Style direction: ${styleHint}`
+1. **Detect Language**: Check if the user's input is Chinese or English.
+2. **Language Consistency**: 
+   - If the user input is in **Chinese**, the output MUST be in **Chinese**.
+   - If the user input is in **English**, the output MUST be in **English**.
+   - **DO NOT TRANSLATE** the core meaning across languages.
+3. **Text Preservation**: If the user provides specific text to be displayed (usually in quotes like "文字内容" or specific names), YOU MUST KEEP IT EXACTLY AS IS. Do not alter or translate text content meant for rendering.
+4. Expand the prompt with artistic details: lighting, composition, atmosphere, textures, colors.
+5. Add quality boosters appropriate to the language:
+   - For Chinese: 高清, 精细, 大师级, 专业品质, 8K
+   - For English: 8K, highly detailed, masterpiece, professional
+6. Incorporate the style direction: "${styleHint}" (Translate this style concept into the target language naturally).
+7. Output ONLY the improved prompt, no explanations or quotes.
+8. Keep under 200 words.`
                 }, {
                     role: "user",
                     content: userPrompt
                 }],
                 temperature: 0.7,
-                max_tokens: 250
+                max_tokens: 500  // 增加 token 限制，中文扩写需要更多空间
             })
         });
 
@@ -84,7 +95,7 @@ Rules:
         const data = await response.json();
         const enhanced = data.choices?.[0]?.message?.content?.trim();
 
-        if (enhanced && enhanced.length > 10) {
+        if (enhanced && enhanced.length > 5) {  // 降低阈值，中文提示词可能较短
             console.log("=== Prompt Enhanced ===");
             console.log("Original:", userPrompt);
             console.log("Enhanced:", enhanced);
