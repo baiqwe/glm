@@ -16,6 +16,7 @@ export function Footer() {
 
   const productLinks = [
     { label: "AI Image Generator", labelZh: "AI 图像生成", href: localePrefix },
+    { label: "Create Image", labelZh: "开始创作", href: `${localePrefix}/create` },
     { label: "Pricing", labelZh: "价格", href: `${localePrefix}/pricing` },
   ];
 

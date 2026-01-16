@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
                 '/*/sign-in',
                 '/*/sign-up',
                 '/*/forgot-password',
-                '/*/create',
+                '/*/dashboard',  // Private user area only
             ],
         },
         sitemap: `${siteConfig.url}/sitemap.xml`,
