@@ -75,7 +75,12 @@ export async function generateMetadata(props: { params: Promise<{ slug: string; 
             url: `${siteConfig.url}/${params.locale}/blog/${params.slug}`,
         },
         alternates: {
-            canonical: `/${params.locale}/blog/${params.slug}`,
+            canonical: `${siteConfig.url}/${params.locale}/blog/${params.slug}`,
+            languages: {
+                'en': `${siteConfig.url}/en/blog/${params.slug}`,
+                'zh': `${siteConfig.url}/zh/blog/${params.slug}`,
+                'x-default': `${siteConfig.url}/en/blog/${params.slug}`,
+            },
         },
     };
 }

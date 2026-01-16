@@ -17,7 +17,12 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
             ? `${siteConfig.name} 博客 - AI 图像生成教程、技巧和最新动态`
             : `${siteConfig.name} Blog - AI image generation tutorials, tips, and latest updates`,
         alternates: {
-            canonical: `/${locale}/blog`,
+            canonical: `${siteConfig.url}/${locale}/blog`,
+            languages: {
+                'en': `${siteConfig.url}/en/blog`,
+                'zh': `${siteConfig.url}/zh/blog`,
+                'x-default': `${siteConfig.url}/en/blog`,
+            },
         },
     };
 }

@@ -9,13 +9,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Geist } from "next/font/google";
 import { SoftwareApplicationSchema } from "@/components/json-ld-schema";
 import { GoogleAnalytics } from "@/components/google-analytics";
-import { createClient } from "@/utils/supabase/server";
 import { PromotionBanner } from "@/components/feature/promotion-banner";
 import { siteConfig } from "@/config/site";
 import "../../globals.css";
 
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 
 const geistSans = Geist({
     display: "swap",
@@ -66,11 +64,11 @@ export async function generateMetadata(props: { params: Promise<{ locale: string
         },
 
         alternates: {
-            canonical: `/${locale}`,
+            canonical: `${siteConfig.url}/${locale}`,
             languages: {
-                'en': '/en',
-                'zh': '/zh',
-                'x-default': '/en',
+                'en': `${siteConfig.url}/en`,
+                'zh': `${siteConfig.url}/zh`,
+                'x-default': `${siteConfig.url}/en`,
             },
         },
 
@@ -117,14 +115,8 @@ export default async function LocaleLayout(props: {
 
     const messages = await getMessages({ locale });
 
-    let user = null;
-    try {
-        const supabase = await createClient();
-        const { data } = await supabase.auth.getUser();
-        user = data?.user || null;
-    } catch (error) {
-        console.error('Failed to get user:', error);
-    }
+    // 用户状态在 Header 客户端组件中通过 useUser hook 获取
+    // 不在服务端获取，以便页面可以被缓存
 
     return (
         <html lang={locale} className={`${geistSans.className} dark`} suppressHydrationWarning>
@@ -140,7 +132,7 @@ export default async function LocaleLayout(props: {
                     >
                         <div className="relative min-h-screen flex flex-col">
                             <PromotionBanner />
-                            <Header user={user} />
+                            <Header user={null} />
                             <main className="flex-1">{children}</main>
                             <Footer />
                         </div>
