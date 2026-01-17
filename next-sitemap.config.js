@@ -11,6 +11,7 @@ module.exports = {
         '/server-sitemap.xml',
         '/icon.svg',
         '/apple-icon.png',
+        '/robots.txt',      // robots.txt is not a page
         '/*/sign-in',       // Auth pages
         '/*/sign-up',
         '/*/forgot-password',
