@@ -57,6 +57,17 @@ module.exports = {
             'terms',
             'about'
         ];
+
+        // Blog posts slugs
+        const blogSlugs = [
+            'cogview-4-chinese-ai-image-generator-review',
+            'z-image-vs-glm-4-comprehensive-review',
+            'nano-banana-ai-vs-glm-image-review',
+            'qwen-image-edit-2511-free-online-alternative',
+            'qwen-image-edit-3d-camera-control-guide',
+            'qwen-image-multiple-angles-3d-camera-tutorial'
+        ];
+
         const result = [];
 
         // Add static pages
@@ -82,10 +93,29 @@ module.exports = {
                     lastmod: new Date().toISOString(),
                 });
             }
+
+            // Add blog index page
+            result.push({
+                loc: `/${locale}/blog`,
+                changefreq: 'daily',
+                priority: 0.9,
+                lastmod: new Date().toISOString(),
+            });
+
+            // Add individual blog posts
+            for (const slug of blogSlugs) {
+                result.push({
+                    loc: `/${locale}/blog/${slug}`,
+                    changefreq: 'weekly',
+                    priority: 0.85,
+                    lastmod: new Date().toISOString(),
+                });
+            }
         }
 
         return result;
     },
+
 
     transform: async (config, path) => {
         // Add priority and changefreq based on page type
