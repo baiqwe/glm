@@ -3,11 +3,10 @@ import { NextResponse, type NextRequest } from 'next/server'
 import createIntlMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 
-const intlMiddleware = createIntlMiddleware(routing)
-
 export async function middleware(request: NextRequest) {
   try {
-    // 1. 先运行 intl 中间件，获取基础 Response (包含语言 Cookie 和重定向逻辑)
+    // 1. 将 intl 中间件初始化移入函数内部，防止顶层初始化崩溃导致整个模块加载失败
+    const intlMiddleware = createIntlMiddleware(routing)
     let response = intlMiddleware(request)
 
     // 2. 初始化 Supabase 客户端
@@ -41,7 +40,6 @@ export async function middleware(request: NextRequest) {
       // 3. 刷新 Session (这会触发上面的 setAll)
       await supabase.auth.getUser()
     } else {
-      // 仅在开发环境或必要时打印，避免污染生产日志
       // console.warn("Middleware: Supabase env vars missing, skipping auth check.")
     }
 
