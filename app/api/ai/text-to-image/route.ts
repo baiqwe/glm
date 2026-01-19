@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
             aspect_ratio = "1:1",
             style = "default",
             model = "cogview-4",
-            enhance = true  // 默认开启提示词增强
+            enhance = false  // 🔴 裸模型直出：默认关闭提示词增强
         } = await request.json();
 
         // 1. Authentication
@@ -177,17 +177,19 @@ export async function POST(request: NextRequest) {
             }, { status: 402 });
         }
 
-        // 4. Enhance Prompt (隐形增强)
+        // 4. Prompt Processing - 裸模型直出方案
+        // 🔴 已禁用提示词增强：所想即所得，用户输入什么模型就画什么
         let finalPrompt = prompt.trim();
-        let wasEnhanced = false;
+        const wasEnhanced = false;
 
-        if (enhance) {
-            const { enhanced, success } = await enhancePrompt(finalPrompt, style, zhipuApiKey);
-            if (success) {
-                finalPrompt = enhanced;
-                wasEnhanced = true;
-            }
-        }
+        // 注释掉提示词增强逻辑 - 保留代码便于将来恢复
+        // if (enhance) {
+        //     const { enhanced, success } = await enhancePrompt(finalPrompt, style, zhipuApiKey);
+        //     if (success) {
+        //         finalPrompt = enhanced;
+        //         wasEnhanced = true;
+        //     }
+        // }
 
         // 5. Call Zhipu CogView API
         try {
