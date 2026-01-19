@@ -20,7 +20,7 @@ export const siteConfig = {
   },
 
   // === PWA 主题 ===
-  themeColor: "#6366f1",                    // Indigo 主题色
+  themeColor: "#f97316",                    // Orange 主题色（匹配新 logo）
   backgroundColor: "#0f172a",               // 深色背景
 };
 

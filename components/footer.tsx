@@ -113,6 +113,19 @@ export function Footer() {
                 className="h-[54px] w-auto opacity-80 hover:opacity-100 transition-opacity"
               />
             </a>
+            <a
+              href="https://findly.tools/glm-image-generator-precision-in-every-pixel?utm_source=glm-image-generator-precision-in-every-pixel"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://findly.tools/badges/findly-tools-badge-light.svg"
+                alt="Featured on findly.tools"
+                width={150}
+                className="h-auto w-[150px] opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </a>
           </div>
         </div>
 
