@@ -10,34 +10,38 @@ export async function middleware(request: NextRequest) {
   let response = intlMiddleware(request)
 
   // 2. 初始化 Supabase 客户端
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
-          // 同时更新 request 和 response
-          // 更新 request 是为了让后续逻辑能读到最新 Cookie
-          cookiesToSet.forEach(({ name, value }) => {
-            request.cookies.set(name, value)
-          })
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-          // 更新 response 是为了写入浏览器
-          // 关键点：我们直接修改 intl 返回的那个 response 对象，而不是创建新的
-          cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, options)
-          })
-        },
-      },
-    }
-  )
+  if (supabaseUrl && supabaseKey) {
+    const supabase = createServerClient(
+      supabaseUrl,
+      supabaseKey,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll()
+          },
+          setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
+            // 同时更新 request 和 response
+            cookiesToSet.forEach(({ name, value }) => {
+              request.cookies.set(name, value)
+            })
 
-  // 3. 刷新 Session (这会触发上面的 setAll)
-  // 重要：不要在这里写 user 变量的逻辑判断，只负责刷新 Cookie
-  await supabase.auth.getUser()
+            // 更新 response 是为了写入浏览器
+            cookiesToSet.forEach(({ name, value, options }) => {
+              response.cookies.set(name, value, options)
+            })
+          },
+        },
+      }
+    )
+
+    // 3. 刷新 Session (这会触发上面的 setAll)
+    await supabase.auth.getUser()
+  } else {
+    console.warn("Middleware: Supabase env vars missing, skipping auth check.")
+  }
 
   return response
 }
