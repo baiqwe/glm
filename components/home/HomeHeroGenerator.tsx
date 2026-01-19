@@ -86,8 +86,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
     const [error, setError] = useState<string | null>(null);
     const [isRefillModalOpen, setIsRefillModalOpen] = useState(false);
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
-    const [enhancedPrompt, setEnhancedPrompt] = useState<string | null>(null);
-    const [enableEnhance, setEnableEnhance] = useState(true);  // AI 增强开关，默认开启
+    // 已移除: enhancedPrompt 和 enableEnhance (裸模型直出方案)
 
     // 客户端用户状态 - 优先使用客户端实时获取的用户状态
     const [currentUser, setCurrentUser] = useState<any>(user);
@@ -166,7 +165,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                     prompt: prompt.trim(),
                     aspect_ratio: selectedRatio,
                     style: selectedStyle,
-                    enhance: enableEnhance,  // 传递 AI 增强开关状态
+                    // enhance 已禁用 - 裸模型直出
                 }),
             });
 
@@ -188,10 +187,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
             const data = await response.json();
             if (data.url) {
                 setResultImage(data.url);
-                // 保存 AI 优化后的提示词
-                if (data.enhancedPrompt) {
-                    setEnhancedPrompt(data.enhancedPrompt);
-                }
+                // 裸模型直出 - 不再处理 enhancedPrompt
                 await refetchCredits();
                 const confetti = (await import('canvas-confetti')).default;
                 confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 } });
@@ -273,7 +269,14 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                         maxLength={2000}
                                     />
 
-                                    {/* 灵感画廊 + AI 增强开关 */}
+                                    {/* 提示词长度建议 */}
+                                    <p className="text-xs text-slate-500 mt-1.5">
+                                        {locale === 'zh'
+                                            ? '💡 为保证文字生成效果，请控制提示词在 80 字内'
+                                            : '💡 For best text rendering, keep prompts under 80 characters'}
+                                    </p>
+
+                                    {/* 灵感快捷按钮 */}
                                     <div className="flex items-center justify-between mt-3 gap-2">
                                         {/* 灵感快捷按钮 */}
                                         <div className="flex flex-wrap gap-1.5">
@@ -297,20 +300,6 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                 <Dices className="w-3.5 h-3.5" />
                                             </button>
                                         </div>
-
-                                        {/* AI 增强开关 */}
-                                        <button
-                                            onClick={() => setEnableEnhance(!enableEnhance)}
-                                            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md transition-all border ${enableEnhance
-                                                ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
-                                                : 'bg-slate-800 text-slate-500 border-slate-700'
-                                                }`}
-                                            title={locale === 'zh' ? 'AI 自动优化提示词' : 'AI auto-enhance prompt'}
-                                        >
-                                            <Sparkles className="w-3 h-3" />
-                                            {locale === 'zh' ? 'AI增强' : 'Enhance'}
-                                            <span className={`w-1.5 h-1.5 rounded-full ${enableEnhance ? 'bg-green-400' : 'bg-slate-600'}`} />
-                                        </button>
                                     </div>
                                 </div>
 
@@ -426,19 +415,6 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                 />
                                             </div>
 
-                                            {/* AI 增强提示词展示 */}
-                                            {enhancedPrompt && (
-                                                <div className="bg-gradient-to-r from-indigo-500/10 to-purple-500/10 rounded-lg p-3 border border-indigo-500/20">
-                                                    <div className="flex items-center gap-1.5 text-xs text-indigo-400 mb-1.5">
-                                                        <Sparkles className="w-3 h-3" />
-                                                        {locale === 'zh' ? 'AI 优化后的提示词' : 'AI-Enhanced Prompt'}
-                                                    </div>
-                                                    <p className="text-xs text-slate-400 leading-relaxed line-clamp-3">
-                                                        {enhancedPrompt}
-                                                    </p>
-                                                </div>
-                                            )}
-
                                             <div className="flex gap-2 justify-center">
                                                 <Button onClick={handleDownload} size="sm" className="bg-indigo-600 hover:bg-indigo-700">
                                                     <Download className="w-4 h-4 mr-2" />
@@ -447,7 +423,7 @@ export default function HomeHeroGenerator({ onShowStaticContent, user }: HomeHer
                                                 <Button
                                                     variant="outline"
                                                     size="sm"
-                                                    onClick={() => { setResultImage(null); setPrompt(""); setEnhancedPrompt(null); }}
+                                                    onClick={() => { setResultImage(null); setPrompt(""); }}
                                                     className="border-slate-600 text-slate-300 hover:bg-slate-800"
                                                 >
                                                     {locale === 'zh' ? '新建' : 'New'}
