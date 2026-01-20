@@ -1,10 +1,10 @@
 {
     "metadata": {
-        "title": "GLM-Image 免费在线 | GLM-4.5 AI 图像生成器 [2026]",
-        "description": "免费 GLM-4.5/4.6 AI 图像生成器。无需排队，即时生成。使用最新 GLM 模型在几秒内创建惊艳的 AI 视觉效果。智谱 AI 替代方案。",
-        "keywords": "glm 图像, glm-4.5, glm 图像生成器, 智谱 ai, ai 图像生成, 文生图",
-        "format_title": "GLM-4.5 {format} 图像生成 - 免费工具",
-        "format_desc": "使用 GLM-4.5 AI 生成精美的 {format} 图像。快速、免费、无需排队。专业品质的 AI 图像生成。"
+        "title": "GLM-Image 免费在线 | GLM-Image AI 图像生成器 [2026]",
+        "description": "免费 GLM-Image 图像生成器。无需排队，即时生成。使用最新 GLM 模型在几秒内创建惊艳的 AI 视觉效果。智谱 AI 替代方案。",
+        "keywords": "glm 图像, glm image online, glm 图像生成器, 智谱 ai, ai 图像生成, 文生图",
+        "format_title": "GLM-Image {format} 图像生成 - 免费工具",
+        "format_desc": "使用 GLM-Image AI 生成精美的 {format} 图像。快速、免费、无需排队。专业品质的 AI 图像生成。"
     },
     "nav": {
         "home": "首页",
@@ -17,14 +17,14 @@
         "sign_out": "退出"
     },
     "hero": {
-        "badge": "🚀 GLM-4.5 AI 图像生成",
+        "badge": "🚀 GLM-Image 在线生成",
         "title": "使用",
-        "title_highlight": "GLM-4.5 AI",
-        "subtitle": "体验 GLM-4.5 图像生成的强大能力。无需排队，即时出图。用自然语言描述即可生成专业级 AI 视觉效果。",
+        "title_highlight": "GLM-Image",
+        "subtitle": "体验 GLM-Image 图像生成的强大能力。无需排队，即时出图。用自然语言描述即可生成专业级 AI 视觉效果。",
         "cta_free": "🎁 免费试用 3 次",
         "cta_signin": "🔒 登录",
         "cta_start": "🎯 开始生成",
-        "feature_1": "GLM-4.5 驱动",
+        "feature_1": "GLM-Image 驱动",
         "feature_2": "即时生成",
         "feature_3": "无需排队"
     },
@@ -57,30 +57,30 @@
     },
     "features": {
         "title": "为什么选择 GLM-Image？",
-        "subtitle": "使用 GLM-4.5 AI 进行图像生成的最快方式。",
+        "subtitle": "使用 GLM-Image 进行图像生成的最快方式。",
         "feature_1_title": "🚀 无需排队",
-        "feature_1_desc": "跳过等待名单。无需注册延迟，即可使用 GLM-4.5 AI 即时生成图像。",
+        "feature_1_desc": "跳过等待名单。无需注册延迟，即可使用 GLM-Image AI 即时生成图像。",
         "feature_2_title": "⚡ 即时出图",
         "feature_2_desc": "几秒内获得 AI 生成的图像。我们优化的管道确保快速生成。",
         "feature_3_title": "🎨 专业品质",
-        "feature_3_desc": "GLM-4.5 生成令人惊艳的高分辨率图像，适合商业用途。",
+        "feature_3_desc": "GLM-Image 生成令人惊艳的高分辨率图像，适合商业用途。",
         "feature_4_title": "🎁 免费试用",
         "feature_4_desc": "每位新用户获得 3 次免费生成。无需信用卡即可开始。",
         "feature_5_title": "📱 随处可用",
         "feature_5_desc": "桌面、平板或手机。从任何设备生成 AI 图像。",
         "feature_6_title": "💬 自然语言",
-        "feature_6_desc": "用中文或英文描述您想要的图像。GLM-4.5 理解上下文。"
+        "feature_6_desc": "用中文或英文描述您想要的图像。GLM-Image 理解上下文。"
     },
     "pages": {
-        "color_to_bw_title": "GLM-4.5 文生图 | 免费 AI 图像生成器",
-        "color_to_bw_desc": "使用 GLM-4.5 从文字提示生成精美的 AI 图像。免费试用。无需排队，即时出图。",
+        "color_to_bw_title": "GLM-Image 文生图 | 免费 AI 图像生成器",
+        "color_to_bw_desc": "使用 GLM-Image 从文字提示生成精美的 AI 图像。免费试用。无需排队，即时出图。",
         "coloring_title": "GLM 图像变换 | AI 驱动的图像编辑",
-        "coloring_desc": "使用 GLM-4.5 AI 创建任何图像的变体。通过智能风格迁移转换照片。",
-        "invert_title": "AI 风格迁移 | GLM-4.5 图像增强",
-        "invert_desc": "将 AI 驱动的风格迁移应用到您的图像。GLM-4.5 理解艺术风格并智能应用。"
+        "coloring_desc": "使用 GLM-Image AI 创建任何图像的变体。通过智能风格迁移转换照片。",
+        "invert_title": "AI 风格迁移 | GLM-Image 图像增强",
+        "invert_desc": "将 AI 驱动的风格迁移应用到您的图像。GLM-Image 理解艺术风格并智能应用。"
     },
     "formats": {
-        "jpg_intro": "GLM-4.5 生成高质量 JPG 图像，非常适合在社交媒体和网站上分享。",
+        "jpg_intro": "GLM-Image 生成高质量 JPG 图像，非常适合在社交媒体和网站上分享。",
         "jpg_feature_1": "优化的文件大小，适合网络分享",
         "jpg_feature_2": "兼容所有平台",
         "jpg_feature_3": "专业的色彩还原",
@@ -98,7 +98,7 @@
         "heic_feature_3": "保持原始质量"
     },
     "footer": {
-        "tagline": "GLM-4.5 AI 图像生成，简单易用",
+        "tagline": "GLM-Image 图像生成，简单易用",
         "product": "产品",
         "resources": "资源",
         "legal": "法律",
@@ -111,7 +111,7 @@
     },
     "Pricing": {
         "title": "释放您的创造力",
-        "subtitle": "加入数千创作者，使用 GLM-4.5 创建令人惊艳的 AI 图像。",
+        "subtitle": "加入数千创作者，使用 GLM-Image 创建令人惊艳的 AI 图像。",
         "monthly": "月付",
         "yearly": "年付",
         "start_pro": "开启专业版",
@@ -141,9 +141,9 @@
     "home": {
         "what": {
             "title": "什么是 GLM-Image？",
-            "desc": "GLM-Image 让您即时访问 GLM-4.5 强大的图像生成能力。无论您是设计师、营销人员还是内容创作者，都能在几秒内生成专业级 AI 图像，无需排队。",
+            "desc": "GLM-Image 让您即时访问强大的图像生成能力。无论您是设计师、营销人员还是内容创作者，都能在几秒内生成专业级 AI 图像，无需排队。",
             "feature_1_title": "文生图",
-            "feature_1_desc": "用自然语言描述您的愿景。GLM-4.5 理解复杂提示并生成匹配的视觉效果。",
+            "feature_1_desc": "用自然语言描述您的愿景。GLM-Image 理解复杂提示并生成匹配的视觉效果。",
             "feature_2_title": "图像变换",
             "feature_2_desc": "上传参考图像，创建具有不同风格和构图的 AI 驱动变体。",
             "feature_3_title": "风格迁移",
@@ -157,21 +157,21 @@
             "step_2_title": "选择设置",
             "step_2_desc": "选择宽高比和质量选项。可选择上传参考图像。",
             "step_3_title": "生成",
-            "step_3_desc": "点击生成，看 GLM-4.5 在几秒内将您的愿景变为现实。",
+            "step_3_desc": "点击生成，看 GLM-Image 在几秒内将您的愿景变为现实。",
             "step_4_title": "下载",
             "step_4_desc": "下载高分辨率 PNG 或 JPG 格式的 AI 生成图像。"
         },
         "why": {
             "title": "为什么选择 GLM-Image？",
-            "subtitle": "无障碍访问 GLM-4.5 图像生成的最佳方式。",
+            "subtitle": "无障碍访问 GLM-Image 图像生成的最佳方式。",
             "reason_1_title": "无需排队，无需等待",
-            "reason_1_desc": "与官方渠道不同，我们提供 GLM-4.5 图像生成的即时访问。无需等待列表，无需注册队列。",
+            "reason_1_desc": "与官方渠道不同，我们提供 GLM-Image 图像生成的即时访问。无需等待列表，无需注册队列。",
             "reason_2_title": "免费试用",
-            "reason_2_desc": "每位新用户获得 3 次免费生成。在付费前先体验 GLM-4.5 的强大能力。",
+            "reason_2_desc": "每位新用户获得 3 次免费生成。在付费前先体验 GLM-Image 的强大能力。",
             "reason_3_title": "实惠的价格",
             "reason_3_desc": "以极低的成本获得专业级 AI 图像生成。$4.99 起可生成 50 张图像。",
             "reason_4_title": "多语言支持",
-            "reason_4_desc": "用中文或英文描述您的图像。GLM-4.5 完美理解两种语言。"
+            "reason_4_desc": "用中文或英文描述您的图像。GLM-Image 完美理解两种语言。"
         },
         "use_cases": {
             "title": "谁在使用 GLM-Image？",
@@ -195,12 +195,12 @@
         },
         "formats": {
             "title": "支持的输出格式",
-            "subtitle": "GLM-4.5 以多种格式生成高质量图像。选择最适合您需求的格式。",
+            "subtitle": "GLM-Image 以多种格式生成高质量图像。选择最适合您需求的格式。",
             "format_1_desc": "通用兼容性",
             "format_2_desc": "支持透明度",
             "format_3_desc": "Web 优化",
             "format_4_desc": "照片品质",
-            "cta": "试用 GLM-4.5 →",
+            "cta": "试用 GLM-Image →",
             "more_tools_title": "更多功能",
             "tool_coloring": "文生图",
             "tool_grayscale": "图像变换",
@@ -209,8 +209,8 @@
         "faq": {
             "title": "常见问题",
             "subtitle": "关于 GLM-Image 您需要知道的一切",
-            "q1": "什么是 GLM-4.5 图像生成？",
-            "a1": "GLM-4.5 是智谱 AI 最新的 AI 模型，能够从文字描述生成惊艳的图像。GLM-Image 提供对这一强大技术的便捷访问。",
+            "q1": "什么是 GLM-Image 图像生成？",
+            "a1": "GLM-Image 是智谱 AI 最新的 AI 模型，能够从文字描述生成惊艳的图像。GLM-Image 提供对这一强大技术的便捷访问。",
             "q2": "GLM-Image 免费吗？",
             "a2": "是的！每位新用户获得 3 次免费生成。之后，实惠的积分包从 $4.99 起可生成 50 张图像。",
             "q3": "生成需要多长时间？",
@@ -219,14 +219,14 @@
             "a4": "可以！使用 GLM-Image 生成的所有图像均可商业使用。建议在使用时添加您自己的品牌元素。"
         },
         "cta": {
-            "title": "开始使用 GLM-4.5 创作",
+            "title": "开始使用 GLM-Image 创作",
             "subtitle": "免费试用 3 次，无需信用卡。",
             "button_start": "开始生成",
             "button_coloring": "体验文生图"
         },
         "seo": {
             "comparison_title": "GLM-Image 与 Midjourney v6 对比：为何选择我们？",
-            "comparison_intro": "在众多 AI 图像生成器中，GLM-4.5/4.6 相比 Midjourney v6 等热门产品具有独特优势：",
+            "comparison_intro": "在众多 AI 图像生成器中，GLM-Image 相比 Midjourney v6 等热门产品具有独特优势：",
             "compare_chinese": "原生中文理解",
             "compare_chinese_desc": "GLM 模型使用海量中文数据训练，深入理解中国文化、成语典故和传统概念，这是西方模型难以比拟的。",
             "compare_speed": "极速生成",
@@ -238,17 +238,16 @@
             "video_title": "如何使用 GLM 图生视频（2026 即将上线）",
             "video_intro": "即将推出的图生视频功能将把您的静态图片转化为动态视频。功能预览：",
             "video_step_1": "第一步：生成图片",
-            "video_step_1_desc": "首先使用 GLM-4.5 文生图功能创建一张高质量的静态图片。",
+            "video_step_1_desc": "首先使用 GLM-Image 文生图功能创建一张高质量的静态图片。",
             "video_step_2": "第二步：选择动画风格",
             "video_step_2_desc": "选择动画、电影感或微动效果等预设，定义视频的运动风格。",
             "video_step_3": "第三步：设置时长",
             "video_step_3_desc": "选择 3 到 10 秒的视频时长。更长的视频将消耗更多积分。",
             "video_step_4": "第四步：生成与下载",
             "video_step_4_desc": "点击生成，等待片刻即可下载 MP4 格式视频，随时分享到社交媒体。",
-            "tech_title": "深入了解 GLM-4.6 架构",
-            "tech_intro": "GLM-4.6 代表了多模态 AI 的下一次进化，建立在 GLM-4.5 的坚实基础之上：",
-            "tech_feature_1": "长文本上下文理解",
-            "tech_feature_1_desc": "GLM-4.6 处理具有超长上下文窗口的提示词，能够理解包含多个元素和复杂关系的场景描述。",
+            "tech_title": "深入了解 GLM-Image 架构",
+            "tech_intro": "GLM-Image 代表了多模态 AI 的下一次进化，建立在 GLM 模型的坚实基础之上：",
+            "tech_feature_1_desc": "GLM-Image 处理具有超长上下文窗口的提示词，能够理解包含多个元素和复杂关系的场景描述。",
             "tech_feature_2": "中文语义增强",
             "tech_feature_2_desc": "通过增强的中文文化和语言训练数据，GLM 擅长诠释传统概念、历史典故和诗意表达。",
             "tech_feature_3": "MCP 协议支持",
@@ -258,18 +257,18 @@
         }
     },
     "create": {
-        "title": "GLM-4.5 图像生成器",
+        "title": "GLM-Image 图像生成器",
         "subtitle": "描述您想要创建的图像",
         "prompt_placeholder": "一个宁静的日式花园，樱花盛开，锦鲤池塘，日落时分的传统拱桥...",
         "aspect_ratio": "宽高比",
         "generate_button": "生成图像",
-        "generating": "正在使用 GLM-4.5 生成...",
+        "generating": "正在使用 GLM-Image 生成...",
         "credits_remaining": "剩余积分",
         "video_coming_soon": "图生视频",
         "video_badge": "即将上线",
         "video_desc": "将您生成的图像转换为精彩视频。此功能正在开发中。",
         "login_required_title": "登录后生成",
-        "login_required_desc": "创建免费账户开始使用 GLM-4.5 生成图像。免费获得 3 次生成机会！",
+        "login_required_desc": "创建免费账户开始使用 GLM-Image 生成图像。免费获得 3 次生成机会！",
         "login_button": "登录 / 注册"
     }
 }

@@ -17,12 +17,12 @@ export const blogPosts: BlogPost[] = [
   {
     slug: 'cogview-4-chinese-ai-image-generator-review',
     title: 'CogView-4 Review: The Best AI for Chinese Text-to-Image Generation',
-    description: 'A comprehensive review of CogView-4 (GLM-4.5). We test its Chinese prompt understanding, text rendering in images, and compare it to DALL-E 3 and Midjourney.',
+    description: 'A comprehensive review of CogView-4 (GLM-Image). We test its Chinese prompt understanding, text rendering in images, and compare it to DALL-E 3 and Midjourney.',
     keywords: ['cogview-4', 'cogview 4', 'glm-4 image', 'chinese ai image generator', 'ai绘画', '中文ai绘图', 'cogview vs midjourney', 'free dall-e alternative'],
     publishDate: '2026-01-17',
     heroImage: '/blog/cogview-4-hero.png',
     content: `
-<p><strong>CogView-4</strong> is the image generation model inside GLM-4.5, made by Zhipu AI. It is the first large AI model that truly understands Chinese prompts and can render Chinese text inside images. This review covers everything you need to know.</p>
+<p><strong>CogView-4</strong> is the image generation model inside GLM-Image, made by Zhipu AI. It is the first large AI model that truly understands Chinese prompts and can render Chinese text inside images. This review covers everything you need to know.</p>
 
 <h2>What Makes CogView-4 Different?</h2>
 
@@ -272,7 +272,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2>What is GLM-Image?</h2>
 
-<p><strong>GLM-Image</strong> uses the GLM-4.5 model. It runs on powerful cloud servers. You use it through your browser—no install needed.</p>
+<p><strong>GLM-Image</strong> uses the GLM model. It runs on powerful cloud servers. You use it through your browser—no install needed.</p>
 
 <p>Key facts about GLM-Image:</p>
 <ul>
