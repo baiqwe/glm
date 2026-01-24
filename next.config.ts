@@ -4,6 +4,11 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./i18n.ts');
 
 const nextConfig: NextConfig = {
+  // 内联关键 CSS，解决 FOUC（无样式内容闪烁）问题
+  experimental: {
+    optimizeCss: true,
+  },
+
   images: {
     unoptimized: false,
     remotePatterns: [
