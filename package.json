@@ -7,7 +7,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "translate": "tsx scripts/translate.ts",
-    "lint": "next lint"
+    "lint": "next lint",
+    "supabase:keepalive": "tsx scripts/supabase-keepalive.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
